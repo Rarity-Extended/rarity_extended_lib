@@ -24,7 +24,7 @@ RarityExtended/
     └── tests_rarity_extended_yyy.js         # Script to test our yyy library element
 ```
 
-### RarityExtended Care
+## RarityExtended Care
 Rarity Extended Care is a smartContract that will be used with RarityExtended to provide a more advanced and secure way to manage all of your adventurers in one call.  
 This can be see as an extension of Rarity to be able to perfom batch actions, including :
 - **Performing the daily Adventure**

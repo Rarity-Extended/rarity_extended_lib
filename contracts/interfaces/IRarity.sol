@@ -11,4 +11,5 @@ interface IRarity {
     function approve(address to, uint256 tokenId) external;
     function getApproved(uint256 tokenId) external view returns (address);
     function ownerOf(uint _summoner) external view returns (address);
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
 }
