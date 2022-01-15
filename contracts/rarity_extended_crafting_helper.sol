@@ -14,7 +14,7 @@ contract rarity_extended_crafting_helper is IERC721Receiver {
     IrERC20 constant _rarityCraftingMaterials = IrERC20(0x2A0F1cB17680161cF255348dDFDeE94ea8Ca196A);
     IrERC20 constant _rarityGold = IrERC20(0x2069B76Afe6b734Fb65D1d099E7ec64ee9CC76B2);
     IRarityCrafting constant _rarityCrafting = IRarityCrafting(0xf41270836dF4Db1D28F7fd0935270e3A603e78cC);
-    uint constant RARITY_CRAFTING_SUMMMONER_ID = 1758709;
+    uint constant RARITY_CRAFTING_SUMMMONER_ID = 1758709; //NPC of the RarityCrafting contract
 
     struct Item {
         uint8 base_type;
