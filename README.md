@@ -24,6 +24,23 @@ RarityExtended/
     └── tests_rarity_extended_yyy.js         # Script to test our yyy library element
 ```
 
+## Deployed contracts
+> Helpers and facilitators
+- [Rarity Extended Name - 0x4762AF980240eFEBbc2D6E46C408A720C20D0e10](https://ftmscan.com/address/0x4762AF980240eFEBbc2D6E46C408A720C20D0e10)
+- [Rarity Extended Care - 0xc066618F5c84D2eB002b99b020364D4CDDE6245D](https://ftmscan.com/address/0xc066618F5c84D2eB002b99b020364D4CDDE6245D)
+- [Rarity Extended XP - 0x640bdeff13ae5527424acd868F65357270b05eB8](https://ftmscan.com/address/0x640bdeff13ae5527424acd868F65357270b05eB8)
+- [Rarity Extended Skins Helper - 0xbe570c81e8bc6a4ca2675fe619044b389df32566](https://ftmscan.com/address/0xbe570c81e8bc6a4ca2675fe619044b389df32566)
+
+> rERC20 and rERC721
+- [Rarity Extended rERC20 - Mushroom - 0xcd80cE7E28fC9288e20b806ca53683a439041738](https://ftmscan.com/address/0xcd80cE7E28fC9288e20b806ca53683a439041738)
+- [Rarity Extended rERC20 - Berries - 0x9d6C92CCa7d8936ade0976282B82F921F7C50696](https://ftmscan.com/address/0x9d6C92CCa7d8936ade0976282B82F921F7C50696)
+- [Rarity Extended rERC20 - Wood - 0xdcE321D1335eAcc510be61c00a46E6CF05d6fAA1](https://ftmscan.com/address/0xdcE321D1335eAcc510be61c00a46E6CF05d6fAA1)
+- [Rarity Extended rERC20 - Leather - 0xc5E80Eef433AF03E9380123C75231A08dC18C4B6](https://ftmscan.com/address/0xc5E80Eef433AF03E9380123C75231A08dC18C4B6)
+- [Rarity Extended rERC20 - Meat - 0x95174B2c7E08986eE44D65252E3323A782429809](https://ftmscan.com/address/0x95174B2c7E08986eE44D65252E3323A782429809)
+- [Rarity Extended rERC20 - Tusks - 0x60bFaCc2F96f3EE847cA7D8cC713Ee40114be667](https://ftmscan.com/address/0x60bFaCc2F96f3EE847cA7D8cC713Ee40114be667)
+- [Rarity Extended rERC20 - Candies - 0x18733f3C91478B122bd0880f41411efd9988D97E](https://ftmscan.com/address/0x18733f3C91478B122bd0880f41411efd9988D97E)
+
+
 ## RarityExtended Care
 Rarity Extended Care is a smartContract that will be used with RarityExtended to provide a more advanced and secure way to manage all of your adventurers in one call.  
 This can be see as an extension of Rarity to be able to perfom batch actions, including :
