@@ -4,7 +4,7 @@ async function main() {
     await hre.run("compile");
 
     //Deploy
-    this.Contract = await ethers.getContractFactory("rarity_xp_proxy");
+    this.Contract = await ethers.getContractFactory("rarity_extended_crafting_helper");
     this.Contract = await this.Contract.deploy();
     console.log("Deployed to:", this.Contract.address);
 
