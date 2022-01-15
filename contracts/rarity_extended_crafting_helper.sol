@@ -35,7 +35,7 @@ contract rarity_extended_crafting_helper is IERC721Receiver {
     **	@param _crafting_materials: Amount of crafting materials to use
     **********************************************************************************************/
     function craft(uint _adventurer, uint8 _base_type, uint8 _item_type, uint _crafting_materials) external {
-        (bool simulation,,,) = _rarityCraft.simulate(_adventurer, _base_type, _item_type, _crafting_materials);
+        (bool simulation,,,) = _rarityCrafting.simulate(_adventurer, _base_type, _item_type, _crafting_materials);
         require(simulation, "Simulation failed");
         require(_isApprovedOrOwner(_adventurer), "!owner");
 
@@ -49,20 +49,20 @@ contract rarity_extended_crafting_helper is IERC721Receiver {
         }
 
         // If the craft succeeds, the NFT crafted should be the current `next_item`
-        uint256 nextItem = _rarityCraft.next_item();
+        uint256 nextItem = _rarityCrafting.next_item();
 
         // As it's synchronous, we register that for this specific item, we expect _adventurer to be the owner
         expected[nextItem] = _adventurer;
         
         // We try to craft. On success, jump to `onERC721Received`
-        _rarityCraft.craft(_adventurer, _base_type, _item_type, _crafting_materials);
+        _rarityCrafting.craft(_adventurer, _base_type, _item_type, _crafting_materials);
         expected[nextItem] = 0;
 
         // We can now check if the new current `next_item` is not the same as we expected.
         // If so, craft was successful and we can send the NFT to the actual owner
-        uint256 newNextItem = _rarityCraft.next_item();
+        uint256 newNextItem = _rarityCrafting.next_item();
         if (nextItem != newNextItem) {
-            _rarityCraft.transferFrom(address(this), msg.sender, nextItem);
+            _rarityCrafting.transferFrom(address(this), msg.sender, nextItem);
         }
     }
 
@@ -78,8 +78,8 @@ contract rarity_extended_crafting_helper is IERC721Receiver {
         uint256 tokenId,
         bytes calldata data
     ) external override returns (bytes4) {
-        if (operator == address(_rarityCraft) && from == address(0)) {
-            _rm.approve(address(_rarityCraft), expected[tokenId]);
+        if (operator == address(this) && from == address(0)) {
+            _rm.approve(address(_rarityCrafting), expected[tokenId]);
         }
         return this.onERC721Received.selector;
     }
@@ -91,12 +91,12 @@ contract rarity_extended_crafting_helper is IERC721Receiver {
     **********************************************************************************************/
     function getItemsByAddress(address _owner) public view returns (Item[] memory) {
         require(_owner != address(0), "cannot retrieve zero address");
-        uint256 arrayLength = _rarity_crafting.balanceOf(_owner);
+        uint256 arrayLength = _rarityCrafting.balanceOf(_owner);
 
         Item[] memory _items = new Item[](arrayLength);
         for (uint256 i = 0; i < arrayLength; i++) {
-            uint256 tokenId = _rarity_crafting.tokenOfOwnerByIndex(_owner, i);
-            (uint8 base_type, uint8 item_type,, uint256 crafter) = _rarity_crafting.items(tokenId);
+            uint256 tokenId = _rarityCrafting.tokenOfOwnerByIndex(_owner, i);
+            (uint8 base_type, uint8 item_type,, uint256 crafter) = _rarityCrafting.items(tokenId);
             _items[i] = Item(base_type, item_type, crafter, tokenId);
         }
         return _items;

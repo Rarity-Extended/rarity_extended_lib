@@ -8,13 +8,16 @@ const RarityExtendedCraftingHelper = artifacts.require("rarity_extended_crafting
 
 use(solidity);
 
-const	RARITY_ADDRESS = '0xce761D788DF608BD21bdd59d6f4B54b2e27F25Bb'
-const   RARITY_GOLD = '0x2069B76Afe6b734Fb65D1d099E7ec64ee9CC76B2';
-const	RARITY_ATTRIBUTES = '0xB5F5AF1087A8DA62A23b08C00C6ec9af21F397a1';
-const	RARITY_SKILLS = '0x51C0B29A1d84611373BA301706c6B4b72283C80F';
-const   RARITY_RAT_SKINS = '0x2A0F1cB17680161cF255348dDFDeE94ea8Ca196A';
+const	RARITY_ADDR = '0xce761D788DF608BD21bdd59d6f4B54b2e27F25Bb'
+const   RARITY_GOLD_ADDR = '0x2069B76Afe6b734Fb65D1d099E7ec64ee9CC76B2';
+const	RARITY_ATTRIBUTES_ADDR = '0xB5F5AF1087A8DA62A23b08C00C6ec9af21F397a1';
+const	RARITY_CRAFTING_ADDR = '0xf41270836dF4Db1D28F7fd0935270e3A603e78cC';
+const	RARITY_SKILLS_ADDR = '0x51C0B29A1d84611373BA301706c6B4b72283C80F';
+const   RARITY_RAT_SKINS_ADDR = '0x2A0F1cB17680161cF255348dDFDeE94ea8Ca196A';
+let		RARITY_CRAFTING;
 let		RARITY;
 let		ADVENTURER_ID;
+
 
 describe('Tests', () => {
 	let		rarityExtendedCraftingHelper;
@@ -27,16 +30,16 @@ describe('Tests', () => {
 		/******************************************************************************************
 		** Mint and prepare adventurer with lot of intel
 		******************************************************************************************/
-		RARITY = new ethers.Contract(RARITY_ADDRESS, [
+		RARITY = new ethers.Contract(RARITY_ADDR, [
 			'function next_summoner() public view returns (uint)',
 			'function summon(uint _class) external',
 			'function setApprovalForAll(address operator, bool _approved) external',
 			'function adventure(uint _summoner) external'
 		], user);
-		const	ATTRIBUTES = new ethers.Contract(RARITY_ATTRIBUTES, [
+		const	ATTRIBUTES = new ethers.Contract(RARITY_ATTRIBUTES_ADDR, [
 			'function point_buy(uint _summoner, uint32 _str, uint32 _dex, uint32 _const, uint32 _int, uint32 _wis, uint32 _cha) external',
 		], user);
-		const	SKILLS = new ethers.Contract(RARITY_SKILLS, [
+		const	SKILLS = new ethers.Contract(RARITY_SKILLS_ADDR, [
 			'function set_skills(uint _summoner, uint8[36] memory _skills) external',
 		], user);
 
@@ -48,22 +51,26 @@ describe('Tests', () => {
 		_skills[5] = 1
 		await (await SKILLS.set_skills(ADVENTURER_ID, _skills)).wait();
 
-        await mintERC20(RARITY_GOLD, ADVENTURER_ID, '80000000000000000000', 2);
-        await mintERC20(RARITY_RAT_SKINS, ADVENTURER_ID, '4514', 2);
+        await mintERC20(RARITY_GOLD_ADDR, ADVENTURER_ID, '80000000000000000000', 2);
+        await mintERC20(RARITY_RAT_SKINS_ADDR, ADVENTURER_ID, '4514', 2);
 		rarityExtendedCraftingHelper = await RarityExtendedCraftingHelper.new();
 
-		LOOT_RAT_SKINS = new ethers.Contract(RARITY_RAT_SKINS, ERC20ABI, user);
-		GOLD_CONTRACT = new ethers.Contract(RARITY_GOLD, ERC20ABI, user);
+		LOOT_RAT_SKINS = new ethers.Contract(RARITY_RAT_SKINS_ADDR, ERC20ABI, user);
+		GOLD_CONTRACT = new ethers.Contract(RARITY_GOLD_ADDR, ERC20ABI, user);
+		RARITY_CRAFTING = new ethers.Contract(RARITY_CRAFTING_ADDR, [
+			'function ownerOf(uint256) external view returns (address)',
+			'function next_item() external view returns (uint256)',
+		], user);
     });
 
 	
 	it('should be possible to get the name of the function', async function() {
 		const	name = await rarityExtendedCraftingHelper.name();
-		await	expect(name).to.be.equal('Rarity Extended Allower');
+		await	expect(name).to.be.equal('Rarity Extended Crafting Helper');
 	})
 
 	it('Should be possible to craft for the adventurer - [1/3]', async function() {
-		const	tokenID = Number(await rarityCrafting.next_item());
+		const	tokenID = Number(await RARITY_CRAFTING.next_item());
 		await (await RARITY.setApprovalForAll(rarityExtendedCraftingHelper.address, true)).wait();
 		await expect(
 			rarityExtendedCraftingHelper.craft(
@@ -74,7 +81,7 @@ describe('Tests', () => {
 				{from: user.address}
 			)
 		).not.to.be.reverted;
-		const	owner = await rarityCrafting.ownerOf(tokenID);
+		const	owner = await RARITY_CRAFTING.ownerOf(tokenID);
 		expect(owner).to.be.equal(user.address);
 	});
 
@@ -83,7 +90,7 @@ describe('Tests', () => {
 		await ethers.provider.send("evm_mine", []);
 		await (await RARITY.adventure(ADVENTURER_ID)).wait();
 
-		const	tokenID = Number(await rarityCrafting.next_item());
+		const	tokenID = Number(await RARITY_CRAFTING.next_item());
 		await (await RARITY.setApprovalForAll(rarityExtendedCraftingHelper.address, true)).wait();
 		await expect(
 			rarityExtendedCraftingHelper.craft(
@@ -94,7 +101,7 @@ describe('Tests', () => {
 				{from: user.address}
 			)
 		).not.to.be.reverted;
-		const	owner = await rarityCrafting.ownerOf(tokenID);
+		const	owner = await RARITY_CRAFTING.ownerOf(tokenID);
 		expect(owner).to.be.equal(user.address);
 	})
 
@@ -103,7 +110,7 @@ describe('Tests', () => {
 		await ethers.provider.send("evm_mine", []);
 		await (await RARITY.adventure(ADVENTURER_ID)).wait();
 
-		const	tokenID = Number(await rarityCrafting.next_item());
+		const	tokenID = Number(await RARITY_CRAFTING.next_item());
 		await (await RARITY.setApprovalForAll(rarityExtendedCraftingHelper.address, true)).wait();
 		await expect(
 			rarityExtendedCraftingHelper.craft(
@@ -114,6 +121,6 @@ describe('Tests', () => {
 				{from: user.address}
 			)
 		).to.be.revertedWith(`Simulation failed`);
-		await expect(rarityCrafting.ownerOf(tokenID)).to.be.revertedWith(`ERC721: owner query for nonexistent token`);
+		await expect(RARITY_CRAFTING.ownerOf(tokenID)).to.be.revertedWith(`ERC721: owner query for nonexistent token`);
 	})
 });

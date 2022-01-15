@@ -3,7 +3,7 @@ const {ethers} = require('hardhat');
 /**************************************************************************************************
 ** Hack functions to mint some ERC20
 **************************************************************************************************/
-export async function    mintERC20(address, to, amount, slot = 2) {
+async function    mintERC20(address, to, amount, slot = 2) {
     const toBytes32 = (bn) => {
         return ethers.utils.hexlify(ethers.utils.zeroPad(bn.toHexString(), 32));
     };
@@ -23,13 +23,19 @@ export async function    mintERC20(address, to, amount, slot = 2) {
         toBytes32(ethers.BigNumber.from(amount)).toString()
     );
 }
-export async function	balanceOf(tokenAddress, user) {
+async function	balanceOf(tokenAddress, user) {
     const abi = ['function balanceOf(uint) external view returns (uint)'];
     const contract = new ethers.Contract(tokenAddress, abi, ethers.provider);
     return (await contract.balanceOf(user)).toString();
 }
 
-export const	ERC20ABI = [
+const	ERC20ABI = [
 	'function approve(uint from, uint spender, uint amount) external returns (bool)',
 	'function allowance(uint from, uint spender) external view returns (uint)'
 ];
+
+module.exports = {
+    mintERC20,
+    balanceOf,
+    ERC20ABI
+};
