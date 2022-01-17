@@ -78,6 +78,7 @@ contract rarity_extended_crafting_helper is IERC721Receiver {
         uint256 tokenId,
         bytes calldata data
     ) external override returns (bytes4) {
+        require(msg.sender == address(_rarityCrafting), "!rarity_crafting");
         require(operator == address(this), "!operator");
         require(from == address(0), "!mint");
         _rm.approve(address(_rarityCrafting), expected[tokenId]);
