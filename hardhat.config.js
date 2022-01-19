@@ -39,7 +39,9 @@ module.exports = {
     networks: {
         hardhat: {
             forking: {
-                url: 'https://rpc.ftm.tools',
+                url: "http://localhost:8545",
+                // url: 'https://rpc.ftm.tools',
+                // blockNumber: 28484484
             },
             chainId: 250
         },
