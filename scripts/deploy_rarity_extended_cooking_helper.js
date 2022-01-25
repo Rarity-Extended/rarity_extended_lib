@@ -5,7 +5,7 @@ async function main() {
 
     //Deploy
     this.Contract = await ethers.getContractFactory("rarity_extended_cooking_helper");
-    this.Contract = await this.Contract.deploy('0x9c8992201280eDF061eB9C7852477F894FE1D582');
+    this.Contract = await this.Contract.deploy('0x6Fa1bee238319Df8eE10677505171EA0278D561b');
     console.log("Deployed to:", this.Contract.address);
 
     //Verify
