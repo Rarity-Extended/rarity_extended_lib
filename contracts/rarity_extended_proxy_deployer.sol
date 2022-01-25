@@ -2,7 +2,7 @@
 pragma solidity ^0.8.10;
 
 interface Extended {
-	function setExtended(address _extended) public;
+	function setExtended(address _extended) external;
 }
 
 contract rarity_extended_proxy_deployer {
@@ -23,7 +23,7 @@ contract rarity_extended_proxy_deployer {
 
         // return address 0 on error
         require(addr != address(0), "failed");
-		Extended(addr).set_extended(_extended);
+		Extended(addr).setExtended(_extended);
         emit Deployed(addr);
     }
 }
