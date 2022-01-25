@@ -30,7 +30,7 @@ RarityExtended/
 - [Rarity Extended Care - 0xc066618F5c84D2eB002b99b020364D4CDDE6245D](https://ftmscan.com/address/0xc066618F5c84D2eB002b99b020364D4CDDE6245D)
 - [Rarity Extended XP - 0x640bdeff13ae5527424acd868F65357270b05eB8](https://ftmscan.com/address/0x640bdeff13ae5527424acd868F65357270b05eB8)
 - [Rarity Extended Skins Helper - 0xbe570c81e8bc6a4ca2675fe619044b389df32566](https://ftmscan.com/address/0xbe570c81e8bc6a4ca2675fe619044b389df32566)
-- [Rarity Extended Proxy Deployer - 0x6751d8e7AeD9d5d2350A03B0D60A4A02D6651644](https://ftmscan.com/address/0x6751d8e7AeD9d5d2350A03B0D60A4A02D6651644)
+- [Rarity Extended Proxy Deployer - 0x253aaEAFDA7AE3C6Ed3E3E2732C49cf077a22Ae0](https://ftmscan.com/address/0x253aaEAFDA7AE3C6Ed3E3E2732C49cf077a22Ae0)
 
 > rERC20 and rERC721
 - [Rarity Extended rERC20 - Mushroom - 0xcd80cE7E28fC9288e20b806ca53683a439041738](https://ftmscan.com/address/0xcd80cE7E28fC9288e20b806ca53683a439041738)

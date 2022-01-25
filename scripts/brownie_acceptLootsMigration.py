@@ -6,6 +6,8 @@ from ape_safe import ApeSafe
 # operational multisig address.
 #
 # Multisig address is 0xFaEc40354d9F43A57b58Dc2b5cffe41564D18BB3.
+# Executed with tx :
+# 0x71ecd740f3b5e61420daa90c62db3d6c1bd8b7dd65b88d917a9716791f35483a
 ###############################################################################
 RARITY_EXTENDED_OP_MS = '0xFaEc40354d9F43A57b58Dc2b5cffe41564D18BB3'
 

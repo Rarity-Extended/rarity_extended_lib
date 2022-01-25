@@ -27,7 +27,7 @@ abstract contract OnlyExtended {
 	**		This may only be called by the current Extended address.
 	**	@param _extended The address requested to take over the role.
 	*******************************************************************************/
-    function setExtended(address _extended) public onlyExtended() {
+	function setExtended(address _extended) public onlyExtended() {
 		pendingExtended = _extended;
 	}
 

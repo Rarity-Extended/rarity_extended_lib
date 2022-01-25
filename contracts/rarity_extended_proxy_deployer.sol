@@ -1,17 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
+interface Extended {
+	function setExtended(address _extended) public;
+}
+
 contract rarity_extended_proxy_deployer {
 
-    uint public nonce;
-
-    event Deployed(address, uint);
+    event Deployed(address);
 
     fallback() external payable {}
-
     receive() external payable {}
 
-    function deploy(bytes memory _code) public payable returns (address addr) {
+    function deploy(bytes memory _code, address _extended) public payable returns (address addr) {
         assembly {
             // create(v, p, n)
             // v = amount of ETH to send
@@ -22,9 +23,8 @@ contract rarity_extended_proxy_deployer {
 
         // return address 0 on error
         require(addr != address(0), "failed");
-
-        emit Deployed(addr, nonce);
-        nonce++;
+		Extended(addr).set_extended(_extended);
+        emit Deployed(addr);
     }
-
 }
+

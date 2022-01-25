@@ -23,10 +23,7 @@ describe('Tests', () => {
 	
 	it('should be possible to deploy a new contract', async function() {
         let     bytecode = RarityExtendedName._json.bytecode;
-        let     nonceBefore = await proxy_deployer.nonce();
 		await   proxy_deployer.deploy(bytecode);
-        let     nonceAfter = await proxy_deployer.nonce();
-		await	expect(Number(nonceBefore)).to.be.equal(Number(nonceAfter) - 1);
 	});
 
 });
