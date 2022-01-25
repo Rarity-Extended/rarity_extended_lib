@@ -29,7 +29,6 @@ def main():
 
 	for (name, address) in loots:
 		Loot = Contract.from_abi(name, address, rERC20_ABI, deployer)
-		print(Loot.pendingExtended())
 		if (Loot.extended() == deployer and Loot.pendingExtended() != RARITY_EXTENDED_OP_MS):
 			print('Setting multisig as new extended for '+name+' ...')
 			Loot.setExtended(convert.to_address(RARITY_EXTENDED_OP_MS))
