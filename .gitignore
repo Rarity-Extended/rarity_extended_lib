@@ -4,3 +4,5 @@ cache
 secrets.json
 .env
 build
+.vscode
+__pycache__
