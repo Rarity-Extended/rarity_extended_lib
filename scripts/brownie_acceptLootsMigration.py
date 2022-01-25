@@ -29,7 +29,7 @@ def main():
 	]
 
 	for (name, address) in loots:
-		Contract.from_abi(name, address, rERC20_ABI)
+		Contract.from_abi(name, address, rERC20_ABI, safe)
 		safe_loot = safe.contract(convert.to_address(address))
 		if (safe_loot.extended() != safe and safe_loot.pendingExtended() == safe):
 			print('Accepting extended by multisig for '+name+' ...')
