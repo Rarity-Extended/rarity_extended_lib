@@ -4,3 +4,4 @@ cache
 secrets.json
 .env
 build
+.vscode
