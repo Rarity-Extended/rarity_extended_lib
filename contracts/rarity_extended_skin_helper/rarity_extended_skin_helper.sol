@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import "./interfaces/IRaritySkinManager.sol";
-import "./interfaces/IRaritySkin.sol";
+import "../interfaces/IRaritySkinManager.sol";
+import "../interfaces/IRaritySkin.sol";
 
 contract rarity_extended_skins_helper {
     IRaritySkinManager constant _raritySkinManager = IRaritySkinManager(0xfFDFc7286c2c8d0a94f99c5e00dA1851564f8C1d);

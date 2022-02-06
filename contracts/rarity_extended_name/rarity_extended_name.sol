@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import "./interfaces/IRarity.sol";
-import "./interfaces/IRarityName.sol";
+import "../interfaces/IRarity.sol";
+import "../interfaces/IRarityName.sol";
 
 contract rarity_extended_name {
     IRarity constant _rm = IRarity(0xce761D788DF608BD21bdd59d6f4B54b2e27F25Bb);

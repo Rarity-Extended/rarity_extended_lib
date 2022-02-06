@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import "./interfaces/IRarity.sol";
-import "./interfaces/IrERC20.sol";
-import "./interfaces/IRarityCooking.sol";
+import "../interfaces/IRarity.sol";
+import "../interfaces/IrERC20.sol";
+import "../interfaces/IRarityCooking.sol";
 
 contract rarity_extended_cooking_helper {
     string constant public name = "Rarity Extended Cooking Helper";

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.10;
 
-abstract contract OnlyExtended {
+abstract contract Extended {
     address public extended;
     address public pendingExtended;
 

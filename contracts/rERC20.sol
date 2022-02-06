@@ -3,9 +3,9 @@ pragma solidity 0.8.10;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./interfaces/IRarity.sol";
-import "./onlyExtended.sol";
+import "./extended.sol";
 
-abstract contract rERC20 is AccessControl, OnlyExtended {
+abstract contract rERC20 is AccessControl, Extended {
     IRarity constant rm = IRarity(0xce761D788DF608BD21bdd59d6f4B54b2e27F25Bb);
     uint8 public constant decimals = 18;
 
@@ -15,7 +15,7 @@ abstract contract rERC20 is AccessControl, OnlyExtended {
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
-    constructor(string memory _name, string memory _symbol) OnlyExtended() {
+    constructor(string memory _name, string memory _symbol) Extended() {
         name = _name;
         symbol = _symbol;
     }

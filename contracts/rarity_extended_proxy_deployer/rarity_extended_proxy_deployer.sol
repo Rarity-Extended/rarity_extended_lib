@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-interface Extended {
-	function setExtended(address _extended) external;
-}
+import "../extended.sol";
 
 contract rarity_extended_proxy_deployer {
 

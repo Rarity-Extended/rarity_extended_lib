@@ -2,9 +2,9 @@
 pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
-import "./interfaces/IRarity.sol";
-import "./interfaces/IrERC20.sol";
-import "./interfaces/IRarityCrafting.sol";
+import "../interfaces/IRarity.sol";
+import "../interfaces/IrERC20.sol";
+import "../interfaces/IRarityCrafting.sol";
 
 contract rarity_extended_crafting_helper is IERC721Receiver {
     string constant public name = "Rarity Extended Crafting Helper";
@@ -78,6 +78,7 @@ contract rarity_extended_crafting_helper is IERC721Receiver {
         uint256 tokenId,
         bytes calldata data
     ) external override returns (bytes4) {
+        data; //silence
         require(msg.sender == address(_rarityCrafting), "!rarity_crafting");
         require(operator == address(this), "!operator");
         require(from == address(0), "!mint");
