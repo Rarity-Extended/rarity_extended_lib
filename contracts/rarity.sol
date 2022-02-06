@@ -3,9 +3,12 @@ pragma solidity 0.8.10;
 import "./interfaces/IRarity.sol";
 import "./interfaces/IERC721.sol";
 import "./interfaces/IrERC721.sol";
+import "./interfaces/IRandomCodex.sol";
 
 abstract contract Rarity {
     IRarity constant _rm = IRarity(0xce761D788DF608BD21bdd59d6f4B54b2e27F25Bb);
+    IRandomCodex constant _random = IRandomCodex(0x7426dBE5207C2b5DaC57d8e55F0959fcD99661D4);
+
 	uint public RARITY_EXTENDED_NCP;
 
 	constructor(bool requireSummoner) {
