@@ -87,6 +87,9 @@ contract rarity_extended_farming_base is Rarity {
         _adventurer += gasleft();
         uint result = 0;
         if (withZero) {
+            if (limit == 0) {
+                return 0;
+            }
             result = _random.dn(_adventurer, limit);
         } else {
             if (limit == 1) {

@@ -18,101 +18,125 @@ WRAPPER = deployer.deploy(rarity_extended_farming_wrapper)
 RARITY_MANIFEST = Contract.from_explorer(RARITY_MANIFEST_ADDR)
 
 # Deploying the Loots address
-WOOD_LOOT_1 = Contract.from_explorer(RARITY_EXTENDED_WOOD_LOOT_ADDR)
-WOOD_LOOT_2 = deployer.deploy(Loot, "Soft Wood", "Soft Wood - (Loot)")
-WOOD_LOOT_3 = deployer.deploy(Loot, "Fine Wood", "Fine Wood - (Loot)")
-WOOD_LOOT_4 = deployer.deploy(Loot, "Seasoned Wood", "Seasoned Wood - (Loot)")
-WOOD_LOOT_5 = deployer.deploy(Loot, "Hard Wood", "Hard Wood - (Loot)")
-WOOD_LOOT_6 = deployer.deploy(Loot, "Elder Wood", "Elder Wood - (Loot)")
-WOOD_LOOT_7 = deployer.deploy(Loot, "Ancient Wood", "Ancient Wood - (Loot)")
+WOOD_LOOT_0 = Contract.from_explorer(RARITY_EXTENDED_WOOD_LOOT_ADDR)
+WOOD_LOOT_1 = deployer.deploy(Loot, "Soft Wood", "Soft Wood - (Loot)")
+WOOD_LOOT_2 = deployer.deploy(Loot, "Fine Wood", "Fine Wood - (Loot)")
+WOOD_LOOT_3 = deployer.deploy(Loot, "Seasoned Wood", "Seasoned Wood - (Loot)")
+WOOD_LOOT_4 = deployer.deploy(Loot, "Hard Wood", "Hard Wood - (Loot)")
+WOOD_LOOT_5 = deployer.deploy(Loot, "Elder Wood", "Elder Wood - (Loot)")
+WOOD_LOOT_6 = deployer.deploy(Loot, "Ancient Wood", "Ancient Wood - (Loot)")
 
 
 # Deploying the initial set of farming
-WOOD_FARMING_1 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_1.address, "Rarity Wood", 0, [], [])
-WOOD_FARMING_2 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_2.address, "Rarity Soft Wood", 1,
-	[WOOD_LOOT_1], [12]
+WOOD_FARMING_0 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_0.address, "Rarity Wood",
+	0, [], []
 )
-WOOD_FARMING_3 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_3.address, "Rarity Fine Wood", 1,
-	[WOOD_LOOT_1, WOOD_LOOT_2], [6, 36]
+WOOD_FARMING_1 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_1.address, "Rarity Soft Wood",
+	1, [WOOD_LOOT_0], [12]
 )
-WOOD_FARMING_4 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_4.address, "Rarity Seasoned Wood", 2,
-	[WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3], [6, 18, 72]
+WOOD_FARMING_2 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_2.address, "Rarity Fine Wood",
+	2, [WOOD_LOOT_0, WOOD_LOOT_1], [6, 36]
 )
-WOOD_FARMING_5 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_5.address, "Rarity Hard Wood", 4,
-	[WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3, WOOD_LOOT_4], [6, 18, 36, 120]
+WOOD_FARMING_3 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_3.address, "Rarity Seasoned Wood",
+	3, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2], [6, 18, 72]
 )
-WOOD_FARMING_6 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_6.address, "Rarity Elder Wood", 8,
-	[WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3, WOOD_LOOT_4, WOOD_LOOT_5], [6, 18, 36, 60, 180]
+WOOD_FARMING_4 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_4.address, "Rarity Hard Wood",
+	4, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3], [6, 18, 36, 120]
 )
-WOOD_FARMING_7 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_7.address, "Rarity Ancient Wood", 16,
-	[WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3, WOOD_LOOT_4, WOOD_LOOT_5, WOOD_LOOT_6], [6, 18, 36, 60, 90, 252]
+WOOD_FARMING_5 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_5.address, "Rarity Elder Wood",
+	5, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3, WOOD_LOOT_4], [6, 18, 36, 60, 180]
 )
-
+WOOD_FARMING_6 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_6.address, "Rarity Ancient Wood",
+	6, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3, WOOD_LOOT_4, WOOD_LOOT_5], [6, 18, 36, 60, 90, 252]
+)
 
 # Set the farming as loot minters
-WOOD_LOOT_1.setMinter(WOOD_FARMING_1, {"from": RARITY_EXTENDED_WOOD_LOOT_MINTER_ADDR})
+WOOD_LOOT_0.setMinter(WOOD_FARMING_0, {"from": RARITY_EXTENDED_WOOD_LOOT_MINTER_ADDR})
+WOOD_LOOT_1.setMinter(WOOD_FARMING_1, {"from": deployer})
 WOOD_LOOT_2.setMinter(WOOD_FARMING_2, {"from": deployer})
 WOOD_LOOT_3.setMinter(WOOD_FARMING_3, {"from": deployer})
 WOOD_LOOT_4.setMinter(WOOD_FARMING_4, {"from": deployer})
 WOOD_LOOT_5.setMinter(WOOD_FARMING_5, {"from": deployer})
 WOOD_LOOT_6.setMinter(WOOD_FARMING_6, {"from": deployer})
-WOOD_LOOT_7.setMinter(WOOD_FARMING_7, {"from": deployer})
 
 # Linking the slots, the wrapped and the contracts
+WRAPPER.registerFarm(WOOD_FARMING_0);
 WRAPPER.registerFarm(WOOD_FARMING_1);
 WRAPPER.registerFarm(WOOD_FARMING_2);
 WRAPPER.registerFarm(WOOD_FARMING_3);
 WRAPPER.registerFarm(WOOD_FARMING_4);
 WRAPPER.registerFarm(WOOD_FARMING_5);
 WRAPPER.registerFarm(WOOD_FARMING_6);
-WRAPPER.registerFarm(WOOD_FARMING_7);
 
 days = 0
-previousWOOD = 0
-previousSOFT_WOOD = 0
-previousSEASONED_WOOD = 0
-previousHARD_WOOD = 0
+previousWoodT0 = 0
+previousWoodT1 = 0
+previousWoodT2 = 0
+previousWoodT3 = 0
+previousWoodT4 = 0
+previousWoodT5 = 0
 
 def printStatus():
-	global days, previousWOOD, previousSOFT_WOOD, previousSEASONED_WOOD, previousHARD_WOOD
+	global days, previousWoodT0, previousWoodT1, previousWoodT2, previousWoodT3, previousWoodT4, previousWoodT5
 
-	_totalWood = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
-	_earnedWood = _totalWood - previousWOOD
-	previousWOOD = _totalWood
+	_totalWoodT0 = WOOD_LOOT_0.balanceOf(DEVELOPER[1]);
+	_earnedWoodT0 = _totalWoodT0 - previousWoodT0
+	previousWoodT0 = _totalWoodT0
 
-	_totalSoftWood = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
-	_earnedSoftWood = _totalSoftWood - previousSOFT_WOOD
-	previousSOFT_WOOD = _totalSoftWood
+	_totalWoodT1 = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
+	_earnedWoodT1 = _totalWoodT1 - previousWoodT2
+	previousWoodT1 = _totalWoodT1
 
-	_totalSeasonedWood = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
-	_earnedSeasonedWood = _totalSeasonedWood - previousSEASONED_WOOD
-	previousSEASONED_WOOD = _totalSeasonedWood
+	_totalWoodT2 = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
+	_earnedWoodT2 = _totalWoodT2 - previousWoodT2
+	previousWoodT2 = _totalWoodT2
 
-	_totalHardWood = WOOD_LOOT_5.balanceOf(DEVELOPER[1]);
-	_earnedHardWood = _totalHardWood - previousHARD_WOOD
-	previousHARD_WOOD = _totalHardWood
+	_totalWoodT3 = WOOD_LOOT_3.balanceOf(DEVELOPER[1]);
+	_earnedWoodT3 = _totalWoodT3 - previousWoodT3
+	previousWoodT3 = _totalWoodT3
+
+	_totalWoodT4 = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
+	_earnedWoodT4 = _totalWoodT4 - previousWoodT4
+	previousWoodT4 = _totalWoodT4
+
+	_totalWoodT5 = WOOD_LOOT_5.balanceOf(DEVELOPER[1]);
+	_earnedWoodT5 = _totalWoodT5 - previousWoodT5
+	previousWoodT5 = _totalWoodT5
+
 	print("\n=================================================================================")
-	print("WOOD: " + convert.to_string(_totalWood), end="")
-	if (_earnedWood > 0):
-		print(Fore.GREEN + ' (+' + convert.to_string(_earnedWood) + ')' + Style.RESET_ALL)
+	print("WOOD T0: " + convert.to_string(_totalWoodT0), end="")
+	if (_earnedWoodT0 > 0):
+		print(Fore.GREEN + ' (+' + convert.to_string(_earnedWoodT0) + ')' + Style.RESET_ALL)
 	else:
 		print('')
 
-	print("SOFT_WOOD: " + convert.to_string(_totalSoftWood), end="")
-	if (_earnedSoftWood > 0):
-		print(Fore.GREEN + ' (+' + convert.to_string(_earnedSoftWood) + ')' + Style.RESET_ALL)
+	print("WOOD T1: " + convert.to_string(_totalWoodT1), end="")
+	if (_earnedWoodT1 > 0):
+		print(Fore.GREEN + ' (+' + convert.to_string(_earnedWoodT1) + ')' + Style.RESET_ALL)
 	else:
 		print('')
 
-	print("SEASONED_WOOD: " + convert.to_string(_totalSeasonedWood), end="")
-	if (_earnedSeasonedWood > 0):
-		print(Fore.GREEN + ' (+' + convert.to_string(_earnedSeasonedWood) + ')' + Style.RESET_ALL)
+	print("WOOD T2: " + convert.to_string(_totalWoodT2), end="")
+	if (_earnedWoodT2 > 0):
+		print(Fore.GREEN + ' (+' + convert.to_string(_earnedWoodT2) + ')' + Style.RESET_ALL)
 	else:
 		print('')
 
-	print("HARD_WOOD: " + convert.to_string(_totalHardWood), end="")
-	if (_earnedHardWood > 0):
-		print(Fore.GREEN + ' (+' + convert.to_string(_earnedHardWood) + ')' + Style.RESET_ALL)
+	print("WOOD T3: " + convert.to_string(_totalWoodT3), end="")
+	if (_earnedWoodT3 > 0):
+		print(Fore.GREEN + ' (+' + convert.to_string(_earnedWoodT3) + ')' + Style.RESET_ALL)
+	else:
+		print('')
+
+	print("WOOD T4: " + convert.to_string(_totalWoodT4), end="")
+	if (_earnedWoodT4 > 0):
+		print(Fore.GREEN + ' (+' + convert.to_string(_earnedWoodT4) + ')' + Style.RESET_ALL)
+	else:
+		print('')
+
+	print("WOOD T5: " + convert.to_string(_totalWoodT5), end="")
+	if (_earnedWoodT5 > 0):
+		print(Fore.GREEN + ' (+' + convert.to_string(_earnedWoodT5) + ')' + Style.RESET_ALL)
 	else:
 		print('')
 
@@ -120,115 +144,227 @@ def printStatus():
 	print("DAYS: " + convert.to_string(days))
 	print("=================================================================================")
 
-def runFarm():
-	global days, previousWOOD, previousSOFT_WOOD, previousSEASONED_WOOD, previousHARD_WOOD
+def runFarmFrom0To1():
+	global days, previousWoodT0, previousWoodT1, previousWoodT2, previousWoodT3, previousWoodT4
 
-	###########################################################################
-	# Loop to farm some WOOD_1 for a few days
-	###########################################################################
 	while True:
-		WOOD_FARMING_1.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		WOOD_FARMING_0.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+
 		printStatus()
 		chain.sleep((86400 * 1) + 3600)
 		chain.mine()
 		days += 1
-		if WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 50:
+
+		if (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(1)):
+			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
+
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 12) and (WRAPPER.level(DEVELOPER[1], 1) == 1):
 			break
 	
-	WOOD_LOOT_1.approve(DEVELOPER[1], WOOD_FARMING_2.RARITY_EXTENDED_NCP(), 50, {"from": DEVELOPER[0]})
-	WOOD_FARMING_2.unlock(DEVELOPER[1], {"from": DEVELOPER[0]})
-	print("\n=================================================================================")
-	print("UNLOCKING LVL 2")
-	previousWOOD = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
-	previousSOFT_WOOD = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
-	previousSEASONED_WOOD = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
-	previousHARD_WOOD = WOOD_LOOT_5.balanceOf(DEVELOPER[1]);
-	print("=================================================================================")
+	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_1.RARITY_EXTENDED_NCP(), 12, {"from": DEVELOPER[0]})
+	WOOD_FARMING_1.unlock(DEVELOPER[1], {"from": DEVELOPER[0]})
 
-	###########################################################################
-	# Loop to farm some WOOD_1 and WOOD_2 for a few days
-	###########################################################################
+	print("\n", Fore.GREEN + 'Tier 1 unlocked!' + Style.RESET_ALL)
+	previousWoodT0 = WOOD_LOOT_0.balanceOf(DEVELOPER[1]);
+	previousWoodT1 = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
+	previousWoodT2 = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
+	previousWoodT3 = WOOD_LOOT_3.balanceOf(DEVELOPER[1]);
+	previousWoodT4 = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
+
+def runFarmFrom1To2():
+	global days, previousWoodT0, previousWoodT1, previousWoodT2, previousWoodT3, previousWoodT4
+
 	while True:
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) < 6):
+			WOOD_FARMING_0.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
 		WOOD_FARMING_1.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
-		WOOD_FARMING_2.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+
 		printStatus()
 		chain.sleep((86400 * 1) + 3600)
 		chain.mine()
 		days += 1
-		if WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 100 and WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 80:
-			break
 
-	WOOD_LOOT_1.approve(DEVELOPER[1], WOOD_FARMING_4.RARITY_EXTENDED_NCP(), 100, {"from": DEVELOPER[0]})
-	WOOD_LOOT_2.approve(DEVELOPER[1], WOOD_FARMING_4.RARITY_EXTENDED_NCP(), 80, {"from": DEVELOPER[0]})
+		if (WRAPPER.level(DEVELOPER[1], 1) < 2) and (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(2)):
+			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
+
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 36) and (WRAPPER.level(DEVELOPER[1], 1) == 2):
+			break
+	
+	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_2.RARITY_EXTENDED_NCP(), 6, {"from": DEVELOPER[0]})
+	WOOD_LOOT_1.approve(DEVELOPER[1], WOOD_FARMING_2.RARITY_EXTENDED_NCP(), 36, {"from": DEVELOPER[0]})
+	WOOD_FARMING_2.unlock(DEVELOPER[1], {"from": DEVELOPER[0]})
+
+	print("\n", Fore.GREEN + 'Tier 2 unlocked!' + Style.RESET_ALL)
+	previousWoodT0 = WOOD_LOOT_0.balanceOf(DEVELOPER[1]);
+	previousWoodT1 = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
+	previousWoodT2 = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
+	previousWoodT3 = WOOD_LOOT_3.balanceOf(DEVELOPER[1]);
+	previousWoodT4 = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
+
+def runFarmFrom2To3():
+	global days, previousWoodT0, previousWoodT1, previousWoodT2, previousWoodT3, previousWoodT4
+
+	while True:
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) < 6):
+			WOOD_FARMING_0.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) < 18):
+			WOOD_FARMING_1.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		WOOD_FARMING_2.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+
+		printStatus()
+		chain.sleep((86400 * 1) + 3600)
+		chain.mine()
+		days += 1
+
+		if (WRAPPER.level(DEVELOPER[1], 1) < 3) and (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(3)):
+			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
+
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 72) and (WRAPPER.level(DEVELOPER[1], 1) == 3):
+			break
+	
+	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_3.RARITY_EXTENDED_NCP(), 6, {"from": DEVELOPER[0]})
+	WOOD_LOOT_1.approve(DEVELOPER[1], WOOD_FARMING_3.RARITY_EXTENDED_NCP(), 18, {"from": DEVELOPER[0]})
+	WOOD_LOOT_2.approve(DEVELOPER[1], WOOD_FARMING_3.RARITY_EXTENDED_NCP(), 72, {"from": DEVELOPER[0]})
+	WOOD_FARMING_3.unlock(DEVELOPER[1], {"from": DEVELOPER[0]})
+
+	print("\n", Fore.GREEN + 'Tier 3 unlocked!' + Style.RESET_ALL)
+	previousWoodT0 = WOOD_LOOT_0.balanceOf(DEVELOPER[1]);
+	previousWoodT1 = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
+	previousWoodT2 = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
+	previousWoodT3 = WOOD_LOOT_3.balanceOf(DEVELOPER[1]);
+	previousWoodT4 = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
+
+def runFarmFrom3To4():
+	global days, previousWoodT0, previousWoodT1, previousWoodT2, previousWoodT3, previousWoodT4
+
+	while True:
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) < 6):
+			WOOD_FARMING_0.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) < 18):
+			WOOD_FARMING_1.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) < 36):
+			WOOD_FARMING_2.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		WOOD_FARMING_3.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+
+		printStatus()
+		chain.sleep((86400 * 1) + 3600)
+		chain.mine()
+		days += 1
+
+		if (WRAPPER.level(DEVELOPER[1], 1) < 4) and (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(4)):
+			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
+
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 36) and (WOOD_LOOT_3.balanceOf(DEVELOPER[1]) >= 120) and (WRAPPER.level(DEVELOPER[1], 1) == 4):
+			break
+	
+	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_4.RARITY_EXTENDED_NCP(), 6, {"from": DEVELOPER[0]})
+	WOOD_LOOT_1.approve(DEVELOPER[1], WOOD_FARMING_4.RARITY_EXTENDED_NCP(), 18, {"from": DEVELOPER[0]})
+	WOOD_LOOT_2.approve(DEVELOPER[1], WOOD_FARMING_4.RARITY_EXTENDED_NCP(), 36, {"from": DEVELOPER[0]})
+	WOOD_LOOT_3.approve(DEVELOPER[1], WOOD_FARMING_4.RARITY_EXTENDED_NCP(), 120, {"from": DEVELOPER[0]})
 	WOOD_FARMING_4.unlock(DEVELOPER[1], {"from": DEVELOPER[0]})
 
-	print("\n=================================================================================")
-	print("UNLOCKING LVL 3")
-	previousWOOD = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
-	previousSOFT_WOOD = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
-	previousSEASONED_WOOD = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
-	previousHARD_WOOD = WOOD_LOOT_5.balanceOf(DEVELOPER[1]);
-	print("=================================================================================")
+	print("\n", Fore.GREEN + 'Tier 4 unlocked!' + Style.RESET_ALL)
+	previousWoodT0 = WOOD_LOOT_0.balanceOf(DEVELOPER[1]);
+	previousWoodT1 = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
+	previousWoodT2 = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
+	previousWoodT3 = WOOD_LOOT_3.balanceOf(DEVELOPER[1]);
+	previousWoodT4 = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
 
-	###########################################################################
-	# Loop to farm some WOOD_1, WOOD_2 and WOOD_3 for a few days
-	###########################################################################
+def runFarmFrom4To5():
+	global days, previousWoodT0, previousWoodT1, previousWoodT2, previousWoodT3, previousWoodT4
+
 	while True:
-		WOOD_FARMING_1.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
-		WOOD_FARMING_2.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) < 6):
+			WOOD_FARMING_0.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) < 18):
+			WOOD_FARMING_1.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) < 36):
+			WOOD_FARMING_2.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_3.balanceOf(DEVELOPER[1]) < 60):
+			WOOD_FARMING_3.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
 		WOOD_FARMING_4.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+
 		printStatus()
 		chain.sleep((86400 * 1) + 3600)
 		chain.mine()
 		days += 1
-		if WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 200 and WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 160 and WOOD_LOOT_4.balanceOf(DEVELOPER[1]) >= 115:
-			break
 
-	WOOD_LOOT_1.approve(DEVELOPER[1], WOOD_FARMING_5.RARITY_EXTENDED_NCP(), 200, {"from": DEVELOPER[0]})
-	WOOD_LOOT_2.approve(DEVELOPER[1], WOOD_FARMING_5.RARITY_EXTENDED_NCP(), 160, {"from": DEVELOPER[0]})
-	WOOD_LOOT_4.approve(DEVELOPER[1], WOOD_FARMING_5.RARITY_EXTENDED_NCP(), 100, {"from": DEVELOPER[0]})
+		if (WRAPPER.level(DEVELOPER[1], 1) < 5) and (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(5)):
+			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
+
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 36) and (WOOD_LOOT_3.balanceOf(DEVELOPER[1]) >= 60) and (WOOD_LOOT_4.balanceOf(DEVELOPER[1]) >= 180) and (WRAPPER.level(DEVELOPER[1], 1) == 5):
+			break
+	
+	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_5.RARITY_EXTENDED_NCP(), 6, {"from": DEVELOPER[0]})
+	WOOD_LOOT_1.approve(DEVELOPER[1], WOOD_FARMING_5.RARITY_EXTENDED_NCP(), 18, {"from": DEVELOPER[0]})
+	WOOD_LOOT_2.approve(DEVELOPER[1], WOOD_FARMING_5.RARITY_EXTENDED_NCP(), 36, {"from": DEVELOPER[0]})
+	WOOD_LOOT_3.approve(DEVELOPER[1], WOOD_FARMING_5.RARITY_EXTENDED_NCP(), 60, {"from": DEVELOPER[0]})
+	WOOD_LOOT_4.approve(DEVELOPER[1], WOOD_FARMING_5.RARITY_EXTENDED_NCP(), 180, {"from": DEVELOPER[0]})
 	WOOD_FARMING_5.unlock(DEVELOPER[1], {"from": DEVELOPER[0]})
 
-	print("\n=================================================================================")
-	print("UNLOCKING LVL 4")
-	previousWOOD = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
-	previousSOFT_WOOD = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
-	previousSEASONED_WOOD = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
-	previousHARD_WOOD = WOOD_LOOT_5.balanceOf(DEVELOPER[1]);
-	print("=================================================================================")
+	print("\n", Fore.GREEN + 'Tier 5 unlocked!' + Style.RESET_ALL)
+	previousWoodT0 = WOOD_LOOT_0.balanceOf(DEVELOPER[1]);
+	previousWoodT1 = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
+	previousWoodT2 = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
+	previousWoodT3 = WOOD_LOOT_3.balanceOf(DEVELOPER[1]);
+	previousWoodT4 = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
 
-	###########################################################################
-	# Loop to farm some WOOD_1, WOOD_2, WOOD_3 and WOOD_4 for a few days
-	###########################################################################
+def runFarmFrom5To6():
+	global days, previousWoodT0, previousWoodT1, previousWoodT2, previousWoodT3, previousWoodT4, previousWoodT5
+
 	while True:
-		WOOD_FARMING_1.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
-		WOOD_FARMING_2.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
-		WOOD_FARMING_4.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) < 6):
+			WOOD_FARMING_0.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) < 18):
+			WOOD_FARMING_1.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) < 36):
+			WOOD_FARMING_2.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_3.balanceOf(DEVELOPER[1]) < 60):
+			WOOD_FARMING_3.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+		if (WOOD_LOOT_4.balanceOf(DEVELOPER[1]) < 90):
+			WOOD_FARMING_4.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
 		WOOD_FARMING_5.harvest(DEVELOPER[1], {"from": DEVELOPER[0]})
+
 		printStatus()
 		chain.sleep((86400 * 1) + 3600)
 		chain.mine()
 		days += 1
-		if WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 300 and WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 200 and WOOD_LOOT_4.balanceOf(DEVELOPER[1]) >= 150 and WOOD_LOOT_5.balanceOf(DEVELOPER[1]) >= 115:
-			break
 
-	WOOD_LOOT_1.approve(DEVELOPER[1], WOOD_FARMING_6.RARITY_EXTENDED_NCP(), 300, {"from": DEVELOPER[0]})
-	WOOD_LOOT_2.approve(DEVELOPER[1], WOOD_FARMING_6.RARITY_EXTENDED_NCP(), 240, {"from": DEVELOPER[0]})
-	WOOD_LOOT_4.approve(DEVELOPER[1], WOOD_FARMING_6.RARITY_EXTENDED_NCP(), 200, {"from": DEVELOPER[0]})
-	WOOD_LOOT_5.approve(DEVELOPER[1], WOOD_FARMING_6.RARITY_EXTENDED_NCP(), 100, {"from": DEVELOPER[0]})
+		if (WRAPPER.level(DEVELOPER[1], 1) < 6) and (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(6)):
+			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
+
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 36) and (WOOD_LOOT_3.balanceOf(DEVELOPER[1]) >= 60) and (WOOD_LOOT_4.balanceOf(DEVELOPER[1]) >= 90) and (WOOD_LOOT_5.balanceOf(DEVELOPER[1]) >= 252) and (WRAPPER.level(DEVELOPER[1], 1) == 6):
+			break
+	
+	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_6.RARITY_EXTENDED_NCP(), 6, {"from": DEVELOPER[0]})
+	WOOD_LOOT_1.approve(DEVELOPER[1], WOOD_FARMING_6.RARITY_EXTENDED_NCP(), 18, {"from": DEVELOPER[0]})
+	WOOD_LOOT_2.approve(DEVELOPER[1], WOOD_FARMING_6.RARITY_EXTENDED_NCP(), 36, {"from": DEVELOPER[0]})
+	WOOD_LOOT_3.approve(DEVELOPER[1], WOOD_FARMING_6.RARITY_EXTENDED_NCP(), 60, {"from": DEVELOPER[0]})
+	WOOD_LOOT_4.approve(DEVELOPER[1], WOOD_FARMING_6.RARITY_EXTENDED_NCP(), 90, {"from": DEVELOPER[0]})
+	WOOD_LOOT_5.approve(DEVELOPER[1], WOOD_FARMING_6.RARITY_EXTENDED_NCP(), 252, {"from": DEVELOPER[0]})
 	WOOD_FARMING_6.unlock(DEVELOPER[1], {"from": DEVELOPER[0]})
 
-	print("\n=================================================================================")
-	print("UNLOCKING LVL 5")
-	previousWOOD = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
-	previousSOFT_WOOD = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
-	previousSEASONED_WOOD = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
-	previousHARD_WOOD = WOOD_LOOT_5.balanceOf(DEVELOPER[1]);
-	print("=================================================================================")
+	print("\n", Fore.GREEN + 'Tier 6 unlocked!' + Style.RESET_ALL)
+	previousWoodT0 = WOOD_LOOT_0.balanceOf(DEVELOPER[1]);
+	previousWoodT1 = WOOD_LOOT_1.balanceOf(DEVELOPER[1]);
+	previousWoodT2 = WOOD_LOOT_2.balanceOf(DEVELOPER[1]);
+	previousWoodT3 = WOOD_LOOT_3.balanceOf(DEVELOPER[1]);
+	previousWoodT4 = WOOD_LOOT_4.balanceOf(DEVELOPER[1]);
+	previousWoodT5 = WOOD_LOOT_5.balanceOf(DEVELOPER[1]);
 
-	printStatus()
 
 
 def main():
-	printEnv()
-	runFarm()
+	runFarmFrom0To1()
+	runFarmFrom1To2()
+	runFarmFrom2To3()
+	runFarmFrom3To4()
+	runFarmFrom4To5()
+	runFarmFrom5To6()
+	printStatus()

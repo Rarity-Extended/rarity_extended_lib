@@ -64,6 +64,17 @@ contract rarity_extended_farming_wrapper is Extended {
 		return xp[_adventurer][farm.typeOf];
 	}
 
+	function levelup(uint _adventurer, uint _farmType) external returns (uint) {
+		uint currentLevel = level[_adventurer][_farmType];
+		uint currentXP = xp[_adventurer][_farmType];
+		uint requiredXP = xpRequired(currentLevel + 1);
+		require(currentXP >= requiredXP, "!xp");
+		
+		level[_adventurer][_farmType] += 1;
+		xp[_adventurer][_farmType] -= requiredXP;
+		return level[_adventurer][_farmType];
+	}
+
 	function getNextHarvest(uint _adventurer) external view returns (uint) {
 		return nextHarvest[_adventurer][msg.sender];
 	}
