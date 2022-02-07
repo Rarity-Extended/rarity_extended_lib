@@ -13,8 +13,16 @@ contract rarity_extended_farming_wrapper is Extended {
 
 	constructor() Extended() {}
 
+	struct sFarm {
+		uint typeOf;
+		uint tier;
+	}
+
 	//Farm contract -> farmingType
-	mapping(address => uint) public farms;
+	mapping(address => sFarm) public Farm;
+
+	//adventurer -> farmingType -> leve
+	mapping(uint => mapping(uint => uint)) public level;
 
 	//adventurer -> farmingType -> xp
 	mapping(uint => mapping(uint => uint)) public xp;
@@ -34,29 +42,34 @@ contract rarity_extended_farming_wrapper is Extended {
 	*******************************************************************************/
 	function registerFarm(address _farm) public onlyExtended() {
 		require(_farm != address(0), "!address");
-		uint8 farmType = IRarityFarmBase(_farm).farm();
+		uint8 farmType = IRarityFarmBase(_farm).typeOf();
+		uint8 farmRequiredLevel = IRarityFarmBase(_farm).requiredLevel();
 		require(farmType != 0, "!farm");
-		require(farms[_farm] == 0, '!new');
-		farms[_farm] = farmType;
+		require(Farm[_farm].typeOf == 0, '!new');
+		Farm[_farm] = sFarm(farmType, farmRequiredLevel);
 	}
 
 	function setNextHarvest(uint _adventurer, uint _delay) external returns (uint) {
-		uint farm = farms[msg.sender];
-		require(farm != 0, "!farm");
+		sFarm memory farm = Farm[msg.sender];
+		require(farm.typeOf != 0, "!farm");
 		nextHarvest[_adventurer][msg.sender] = block.timestamp + _delay;
 		return nextHarvest[_adventurer][msg.sender];
 	}
 
 	function setXp(uint _adventurer) external returns (uint) {
-		uint farm = farms[msg.sender];
-		require(farm != 0, "!farm");
-		xp[_adventurer][farm] += XP_PER_HARVEST;
-		return xp[_adventurer][farm];
+		sFarm memory farm = Farm[msg.sender];
+		require(farm.typeOf != 0, "!farm");
+		uint256 xpProgress = XP_PER_HARVEST - (XP_PER_HARVEST * (level[_adventurer][farm.typeOf] - farm.tier) * 20 / 100);
+		xp[_adventurer][farm.typeOf] += xpProgress;
+		return xp[_adventurer][farm.typeOf];
 	}
 
 	function getNextHarvest(uint _adventurer) external view returns (uint) {
 		return nextHarvest[_adventurer][msg.sender];
 	}
 
+    function xpRequired(uint curent_level) public pure returns (uint) {
+        return (curent_level * (curent_level + 1) / 2) * 1000;
+    }
 }
 

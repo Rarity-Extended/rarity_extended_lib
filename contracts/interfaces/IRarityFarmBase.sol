@@ -2,5 +2,6 @@
 pragma solidity ^0.8.10;
 
 interface IRarityFarmBase {
-    function farm() external view returns (uint8);
+    function typeOf() external view returns (uint8);
+    function requiredLevel() external view returns (uint8);
 }

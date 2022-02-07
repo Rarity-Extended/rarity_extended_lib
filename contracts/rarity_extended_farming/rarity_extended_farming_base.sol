@@ -6,12 +6,13 @@ import "../interfaces/IrERC20.sol";
 import "../interfaces/IRarityFarmingWrapper.sol";
 
 contract rarity_extended_farming_base is Rarity {
+    uint constant DEFAULT_XP_REQUIRED = 1_000;
 	uint constant DAY = 1 days;
-	uint8 immutable public farm;
-	uint8 immutable public maxRewardPerHarvest;
+	uint8 constant public MAX_REWARD_PER_HARVEST = 3;
+	uint8 immutable public typeOf;
 	string public name;
 
-	uint public requiredXP;
+	uint public requiredLevel;
 	address[] public requiredItems;
 	uint[] public requiredItemsCount;
 
@@ -30,16 +31,20 @@ contract rarity_extended_farming_base is Rarity {
 	**	- 4 for fishing
 	*******************************************************************************/
 	constructor(
-        uint8 _farmingType, uint8 _maxRewardPerHarvest, address _wrapper, address _farmLoot, string memory _name,
-        uint _requiredXP, address[] memory _requiredItems, uint[] memory _requiredItemsCount
+        uint8 _farmingType,
+        address _wrapper,
+        address _farmLoot,
+        string memory _name,
+        uint _requiredLevel,
+        address[] memory _requiredItems,
+        uint[] memory _requiredItemsCount
     ) Rarity(true) {
         require(_requiredItems.length == _requiredItemsCount.length);
-		farm = _farmingType;
+		typeOf = _farmingType;
         wrapper = IRarityFarmingWrapper(_wrapper);
         farmLoot = IrERC20(_farmLoot);
-        maxRewardPerHarvest = _maxRewardPerHarvest;
         name = _name;
-        requiredXP = _requiredXP;
+        requiredLevel = _requiredLevel;
 		requiredItems = _requiredItems;
 		requiredItemsCount = _requiredItemsCount;
         defaultUnlocked = _requiredItems.length == 0;
@@ -63,7 +68,7 @@ contract rarity_extended_farming_base is Rarity {
     function harvest(uint _adventurer) external {
         require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
         require(block.timestamp > wrapper.getNextHarvest(_adventurer), "!nextHarvest");
-        require(wrapper.xp(_adventurer, farm) >= requiredXP, "!xp");
+        require(wrapper.level(_adventurer, typeOf) >= requiredLevel, "!level");
 		require(isUnlocked[_adventurer] || defaultUnlocked, "!unlocked");
         wrapper.setNextHarvest(_adventurer, DAY);
         wrapper.setXp(_adventurer);
@@ -71,13 +76,14 @@ contract rarity_extended_farming_base is Rarity {
     }
 
 	function _mintFarmLoot(uint _adventurer) internal returns (uint) {
-		uint adventurerXP = 1; //wrapper.xp(_adventurer, farm); HOW TO ADD A MODIFIER HERE
-		uint farmLootAmount = _get_random(_adventurer, maxRewardPerHarvest, false);
-		farmLoot.mint(_adventurer, adventurerXP + farmLootAmount);
-		return adventurerXP + farmLootAmount;
+		uint adventurerLevel = wrapper.level(_adventurer, typeOf);
+		uint farmLootAmount = _get_random(_adventurer, MAX_REWARD_PER_HARVEST, false);
+        uint extraFarmLootAmount = _get_random(_adventurer, adventurerLevel, true);
+		farmLoot.mint(_adventurer, extraFarmLootAmount + farmLootAmount);
+		return extraFarmLootAmount + farmLootAmount;
 	}
 
-    function _get_random(uint _adventurer, uint limit, bool withZero) public view returns (uint) {
+    function _get_random(uint _adventurer, uint limit, bool withZero) internal view returns (uint) {
         _adventurer += gasleft();
         uint result = 0;
         if (withZero) {
@@ -97,7 +103,7 @@ contract rarity_extended_farming_base is Rarity {
 // STEP
 // From 1 to 2 ->
 // 	Duration: 1 week,
-//  endXP:    750
+//  endXP:    1750
 //  endLevel: 1
 // 	Max:      70
 // 	LevelReq: 1
@@ -105,7 +111,7 @@ contract rarity_extended_farming_base is Rarity {
 
 // From 2 to 3 ->
 // 	Duration: ~2 week,
-//  endXP:    1250
+//  endXP:    3500
 //  endLevel: 2
 // 	Max:      112
 // 	LevelReq: 2
