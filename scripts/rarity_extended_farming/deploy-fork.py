@@ -1,7 +1,7 @@
 from colorama import Fore, Back, Style
 from brownie import (
 	accounts, Contract, chain, convert,
-	rarity_extended_farming_wrapper,
+	rarity_extended_farming_core,
 	rarity_extended_farming_base,
 	Loot
 )
@@ -14,7 +14,7 @@ RARITY_EXTENDED_WOOD_LOOT_ADDR = "0xdcE321D1335eAcc510be61c00a46E6CF05d6fAA1"
 RARITY_EXTENDED_WOOD_LOOT_MINTER_ADDR = "0xFaEc40354d9F43A57b58Dc2b5cffe41564D18BB3"
 
 # Deploying the Equipement system
-WRAPPER = deployer.deploy(rarity_extended_farming_wrapper)
+RARITY_FARMING_CORE = deployer.deploy(rarity_extended_farming_core)
 RARITY_MANIFEST = Contract.from_explorer(RARITY_MANIFEST_ADDR)
 
 # Deploying the Loots address
@@ -28,25 +28,25 @@ WOOD_LOOT_6 = deployer.deploy(Loot, "Ancient Wood", "Ancient Wood - (Loot)")
 
 
 # Deploying the initial set of farming
-WOOD_FARMING_0 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_0.address, "Rarity Wood",
+WOOD_FARMING_0 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_0.address, "Rarity Wood",
 	0, [], []
 )
-WOOD_FARMING_1 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_1.address, "Rarity Soft Wood",
+WOOD_FARMING_1 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_1.address, "Rarity Soft Wood",
 	1, [WOOD_LOOT_0], [12]
 )
-WOOD_FARMING_2 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_2.address, "Rarity Fine Wood",
+WOOD_FARMING_2 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_2.address, "Rarity Fine Wood",
 	2, [WOOD_LOOT_0, WOOD_LOOT_1], [6, 36]
 )
-WOOD_FARMING_3 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_3.address, "Rarity Seasoned Wood",
+WOOD_FARMING_3 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_3.address, "Rarity Seasoned Wood",
 	3, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2], [6, 18, 72]
 )
-WOOD_FARMING_4 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_4.address, "Rarity Hard Wood",
+WOOD_FARMING_4 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_4.address, "Rarity Hard Wood",
 	4, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3], [6, 18, 36, 120]
 )
-WOOD_FARMING_5 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_5.address, "Rarity Elder Wood",
+WOOD_FARMING_5 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_5.address, "Rarity Elder Wood",
 	5, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3, WOOD_LOOT_4], [6, 18, 36, 60, 180]
 )
-WOOD_FARMING_6 = deployer.deploy(rarity_extended_farming_base, 1, WRAPPER, WOOD_LOOT_6.address, "Rarity Ancient Wood",
+WOOD_FARMING_6 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_6.address, "Rarity Ancient Wood",
 	6, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3, WOOD_LOOT_4, WOOD_LOOT_5], [6, 18, 36, 60, 90, 252]
 )
 
@@ -60,13 +60,13 @@ WOOD_LOOT_5.setMinter(WOOD_FARMING_5, {"from": deployer})
 WOOD_LOOT_6.setMinter(WOOD_FARMING_6, {"from": deployer})
 
 # Linking the slots, the wrapped and the contracts
-WRAPPER.registerFarm(WOOD_FARMING_0);
-WRAPPER.registerFarm(WOOD_FARMING_1);
-WRAPPER.registerFarm(WOOD_FARMING_2);
-WRAPPER.registerFarm(WOOD_FARMING_3);
-WRAPPER.registerFarm(WOOD_FARMING_4);
-WRAPPER.registerFarm(WOOD_FARMING_5);
-WRAPPER.registerFarm(WOOD_FARMING_6);
+RARITY_FARMING_CORE.registerFarm(WOOD_FARMING_0);
+RARITY_FARMING_CORE.registerFarm(WOOD_FARMING_1);
+RARITY_FARMING_CORE.registerFarm(WOOD_FARMING_2);
+RARITY_FARMING_CORE.registerFarm(WOOD_FARMING_3);
+RARITY_FARMING_CORE.registerFarm(WOOD_FARMING_4);
+RARITY_FARMING_CORE.registerFarm(WOOD_FARMING_5);
+RARITY_FARMING_CORE.registerFarm(WOOD_FARMING_6);
 
 days = 0
 previousWoodT0 = 0
@@ -140,7 +140,7 @@ def printStatus():
 	else:
 		print('')
 
-	print("XP: " + convert.to_string(WRAPPER.xp(DEVELOPER[1], 1)))
+	print("XP: " + convert.to_string(RARITY_FARMING_CORE.xp(DEVELOPER[1], 1)))
 	print("DAYS: " + convert.to_string(days))
 	print("=================================================================================")
 
@@ -155,11 +155,11 @@ def runFarmFrom0To1():
 		chain.mine()
 		days += 1
 
-		if (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(1)):
-			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+		if (RARITY_FARMING_CORE.xp(DEVELOPER[1], 1) >= RARITY_FARMING_CORE.xpRequired(1)):
+			RARITY_FARMING_CORE.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
 			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
 
-		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 12) and (WRAPPER.level(DEVELOPER[1], 1) == 1):
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 12) and (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) == 1):
 			break
 	
 	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_1.RARITY_EXTENDED_NCP(), 12, {"from": DEVELOPER[0]})
@@ -185,11 +185,11 @@ def runFarmFrom1To2():
 		chain.mine()
 		days += 1
 
-		if (WRAPPER.level(DEVELOPER[1], 1) < 2) and (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(2)):
-			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+		if (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) < 2) and (RARITY_FARMING_CORE.xp(DEVELOPER[1], 1) >= RARITY_FARMING_CORE.xpRequired(2)):
+			RARITY_FARMING_CORE.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
 			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
 
-		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 36) and (WRAPPER.level(DEVELOPER[1], 1) == 2):
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 36) and (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) == 2):
 			break
 	
 	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_2.RARITY_EXTENDED_NCP(), 6, {"from": DEVELOPER[0]})
@@ -218,11 +218,11 @@ def runFarmFrom2To3():
 		chain.mine()
 		days += 1
 
-		if (WRAPPER.level(DEVELOPER[1], 1) < 3) and (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(3)):
-			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+		if (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) < 3) and (RARITY_FARMING_CORE.xp(DEVELOPER[1], 1) >= RARITY_FARMING_CORE.xpRequired(3)):
+			RARITY_FARMING_CORE.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
 			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
 
-		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 72) and (WRAPPER.level(DEVELOPER[1], 1) == 3):
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 72) and (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) == 3):
 			break
 	
 	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_3.RARITY_EXTENDED_NCP(), 6, {"from": DEVELOPER[0]})
@@ -254,11 +254,11 @@ def runFarmFrom3To4():
 		chain.mine()
 		days += 1
 
-		if (WRAPPER.level(DEVELOPER[1], 1) < 4) and (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(4)):
-			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+		if (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) < 4) and (RARITY_FARMING_CORE.xp(DEVELOPER[1], 1) >= RARITY_FARMING_CORE.xpRequired(4)):
+			RARITY_FARMING_CORE.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
 			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
 
-		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 36) and (WOOD_LOOT_3.balanceOf(DEVELOPER[1]) >= 120) and (WRAPPER.level(DEVELOPER[1], 1) == 4):
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 36) and (WOOD_LOOT_3.balanceOf(DEVELOPER[1]) >= 120) and (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) == 4):
 			break
 	
 	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_4.RARITY_EXTENDED_NCP(), 6, {"from": DEVELOPER[0]})
@@ -293,11 +293,11 @@ def runFarmFrom4To5():
 		chain.mine()
 		days += 1
 
-		if (WRAPPER.level(DEVELOPER[1], 1) < 5) and (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(5)):
-			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+		if (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) < 5) and (RARITY_FARMING_CORE.xp(DEVELOPER[1], 1) >= RARITY_FARMING_CORE.xpRequired(5)):
+			RARITY_FARMING_CORE.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
 			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
 
-		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 36) and (WOOD_LOOT_3.balanceOf(DEVELOPER[1]) >= 60) and (WOOD_LOOT_4.balanceOf(DEVELOPER[1]) >= 180) and (WRAPPER.level(DEVELOPER[1], 1) == 5):
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 36) and (WOOD_LOOT_3.balanceOf(DEVELOPER[1]) >= 60) and (WOOD_LOOT_4.balanceOf(DEVELOPER[1]) >= 180) and (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) == 5):
 			break
 	
 	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_5.RARITY_EXTENDED_NCP(), 6, {"from": DEVELOPER[0]})
@@ -335,11 +335,11 @@ def runFarmFrom5To6():
 		chain.mine()
 		days += 1
 
-		if (WRAPPER.level(DEVELOPER[1], 1) < 6) and (WRAPPER.xp(DEVELOPER[1], 1) >= WRAPPER.xpRequired(6)):
-			WRAPPER.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
+		if (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) < 6) and (RARITY_FARMING_CORE.xp(DEVELOPER[1], 1) >= RARITY_FARMING_CORE.xpRequired(6)):
+			RARITY_FARMING_CORE.levelup(DEVELOPER[1], 1, {"from": DEVELOPER[0]})
 			print("\n" + Fore.GREEN + 'Level up!' + Style.RESET_ALL)
 
-		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 36) and (WOOD_LOOT_3.balanceOf(DEVELOPER[1]) >= 60) and (WOOD_LOOT_4.balanceOf(DEVELOPER[1]) >= 90) and (WOOD_LOOT_5.balanceOf(DEVELOPER[1]) >= 252) and (WRAPPER.level(DEVELOPER[1], 1) == 6):
+		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 6) and (WOOD_LOOT_1.balanceOf(DEVELOPER[1]) >= 18) and (WOOD_LOOT_2.balanceOf(DEVELOPER[1]) >= 36) and (WOOD_LOOT_3.balanceOf(DEVELOPER[1]) >= 60) and (WOOD_LOOT_4.balanceOf(DEVELOPER[1]) >= 90) and (WOOD_LOOT_5.balanceOf(DEVELOPER[1]) >= 252) and (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) == 6):
 			break
 	
 	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_6.RARITY_EXTENDED_NCP(), 6, {"from": DEVELOPER[0]})
