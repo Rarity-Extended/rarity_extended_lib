@@ -2,10 +2,11 @@
 pragma solidity ^0.8.9;
 
 import "../rarity.sol";
+import "../extended.sol";
 import "../interfaces/IrERC20.sol";
 import "../interfaces/IRarityFarmingCore.sol";
 
-contract rarity_extended_farming_base is Rarity {
+contract rarity_extended_farming_base is Extended, Rarity {
 	uint constant DAY = 1 days; //Duration between two harvest
 	uint constant MAX_REWARD_PER_HARVEST = 3; //Base rewards is between 1 and MAX_REWARD_PER_HARVEST 
 	uint immutable public typeOf; //Type of farm. 1 for wood, 2 for minerals etc.
@@ -19,9 +20,11 @@ contract rarity_extended_farming_base is Rarity {
     bool immutable defaultUnlocked; //Is this contract unlocked by default for any adventurer
 	mapping(uint => bool) public isUnlocked; //Is this contract unlocked for adventurer uint
 	mapping(uint => uint) public nextHarvest; //Next harvest for adventurer
+	mapping(uint => uint) public upgradeLevel; //What is the upgrad level for this farm. Premium override.
 
     event Harvested(uint _adventurer, uint _amount);
     event Unlocked(uint _adventurer);
+    event Upgrade(uint _adventurer, uint _level);
 
     /*******************************************************************************
     **  @dev Register the farming contract.
@@ -36,11 +39,11 @@ contract rarity_extended_farming_base is Rarity {
     **	@param _requiredItemsCount: Amount of loots required to unlock this farm
     *******************************************************************************/
 	constructor(
-        uint8 _farmingType,
         address _farmingCore,
         address _farmLoot,
-        string memory _name,
+        uint8 _farmingType,
         uint _requiredLevel,
+        string memory _name,
         address[] memory _requiredItems,
         uint[] memory _requiredItemsCount
     ) Rarity(true) {
@@ -53,26 +56,6 @@ contract rarity_extended_farming_base is Rarity {
 		requiredItems = _requiredItems;
 		requiredItemsCount = _requiredItemsCount;
         defaultUnlocked = _requiredItems.length == 0;
-	}
-
-    /*******************************************************************************
-    **  @dev Allow an adventurer to unlock the farm if the requirement are met.
-    **	@param _adventurer: adventurer we would like to use with this farm
-    *******************************************************************************/
-	function unlock(uint _adventurer) public {
-        require(!defaultUnlocked, "!unlocked");
-        require(!isUnlocked[_adventurer], "!unlocked");
-		require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
-		for (uint256 i = 0; i < requiredItems.length; i++) {
-			IrERC20(requiredItems[i]).transferFrom(
-				RARITY_EXTENDED_NCP,
-				_adventurer,
-				RARITY_EXTENDED_NCP,
-				requiredItemsCount[i]
-			);
-		}
-		isUnlocked[_adventurer] = true;
-        emit Unlocked(_adventurer);
 	}
 
     /*******************************************************************************
@@ -103,8 +86,53 @@ contract rarity_extended_farming_base is Rarity {
 		uint adventurerLevel = farmingCore.level(_adventurer, typeOf);
 		uint farmLootAmount = _get_random(_adventurer, MAX_REWARD_PER_HARVEST, false);
         uint extraFarmLootAmount = _get_random(_adventurer, adventurerLevel, true);
-		farmLoot.mint(_adventurer, extraFarmLootAmount + farmLootAmount);
-		return extraFarmLootAmount + farmLootAmount;
+		farmLoot.mint(_adventurer, extraFarmLootAmount + (farmLootAmount * (upgradeLevel[_adventurer] + 1)));
+		return extraFarmLootAmount + (farmLootAmount * (upgradeLevel[_adventurer] + 1));
+	}
+
+	/*******************************************************************************
+	**  @dev Increment the upgrade for a specific adventurer/farm by 1. It will then
+	**	increase all the reward from this pool.
+    **  The _beforeUpgrade function is called to allow deployer to customize the
+    **  upgrade requirements.
+	**	@param _adventurer: adventurer to upgrade the farm for
+	*******************************************************************************/
+	function upgrade(uint _adventurer) public payable {
+		require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
+        _beforeUpgrade(_adventurer, upgradeLevel[_adventurer] + 1);
+        upgradeLevel[_adventurer] += 1;
+        emit Upgrade(_adventurer, upgradeLevel[_adventurer]);
+	}
+
+	/*******************************************************************************
+	**  @dev Fire before an upgrade. It allows the deployer to customize the upgrade
+    **  requirements. Default is revert;
+	**	@param _adventurer: adventurer to upgrade the farm for
+	*******************************************************************************/
+    function _beforeUpgrade(uint _adventurer, uint _toUpgradeLevel) internal virtual {
+        _adventurer; //silence!
+        _toUpgradeLevel; //silence!
+        revert("no upgrade");
+    }
+
+    /*******************************************************************************
+    **  @dev Allow an adventurer to unlock the farm if the requirement are met.
+    **	@param _adventurer: adventurer we would like to use with this farm
+    *******************************************************************************/
+	function unlock(uint _adventurer) public {
+        require(!defaultUnlocked, "!unlocked");
+        require(!isUnlocked[_adventurer], "!unlocked");
+		require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
+		for (uint256 i = 0; i < requiredItems.length; i++) {
+			IrERC20(requiredItems[i]).transferFrom(
+				RARITY_EXTENDED_NCP,
+				_adventurer,
+				RARITY_EXTENDED_NCP,
+				requiredItemsCount[i]
+			);
+		}
+		isUnlocked[_adventurer] = true;
+        emit Unlocked(_adventurer);
 	}
 
     /*******************************************************************************
@@ -115,7 +143,7 @@ contract rarity_extended_farming_base is Rarity {
 		uint adventurerLevel = farmingCore.level(_adventurer, typeOf);
 		uint farmLootAmount = _get_random(_adventurer, MAX_REWARD_PER_HARVEST, false);
         uint extraFarmLootAmount = _get_random(_adventurer, adventurerLevel, true);
-		return extraFarmLootAmount + farmLootAmount;
+		return extraFarmLootAmount + (farmLootAmount * (upgradeLevel[_adventurer] + 1));
 	}
 
     /*******************************************************************************
@@ -152,5 +180,12 @@ contract rarity_extended_farming_base is Rarity {
             result += 1;
         }
         return result;
+    }
+
+    /*******************************************************************************
+    **  @dev Is the upgrade is payable with some ftm, get a way to retreive it
+    *******************************************************************************/
+    function sweepFtm() public onlyExtended {
+        payable(msg.sender).transfer(address(this).balance);
     }
 }

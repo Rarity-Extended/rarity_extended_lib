@@ -1,11 +1,13 @@
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 from brownie import (
 	accounts, Contract, chain, convert,
 	rarity_extended_farming_core,
 	rarity_extended_farming_base,
+	rarity_extended_farming_base_premium,
 	Loot
 )
 deployer = accounts[0] # or accounts.load('rarityextended')
+rewards = accounts[4]
 
 # Some of the address for Rarity
 DEVELOPER = ['0x9E63B020ae098E73cF201EE1357EDc72DFEaA518', '636245']
@@ -28,26 +30,34 @@ WOOD_LOOT_6 = deployer.deploy(Loot, "Ancient Wood", "Ancient Wood - (Loot)")
 
 
 # Deploying the initial set of farming
-WOOD_FARMING_0 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_0.address, "Rarity Wood",
-	0, [], []
+WOOD_FARMING_0 = deployer.deploy(rarity_extended_farming_base_premium,
+	rewards, 1e18,
+	RARITY_FARMING_CORE, WOOD_LOOT_0, 1, 0, "Rarity Wood",
+	[], []
 )
-WOOD_FARMING_1 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_1.address, "Rarity Soft Wood",
-	1, [WOOD_LOOT_0], [12]
+WOOD_FARMING_1 = deployer.deploy(rarity_extended_farming_base_premium,
+	rewards, 1e18,
+	RARITY_FARMING_CORE, WOOD_LOOT_1, 1, 1, "Rarity Soft Wood", [WOOD_LOOT_0], [12]
 )
-WOOD_FARMING_2 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_2.address, "Rarity Fine Wood",
-	2, [WOOD_LOOT_0, WOOD_LOOT_1], [6, 36]
+WOOD_FARMING_2 = deployer.deploy(rarity_extended_farming_base,
+	RARITY_FARMING_CORE, WOOD_LOOT_2, 1, 2, "Rarity Fine Wood",
+	[WOOD_LOOT_0, WOOD_LOOT_1], [6, 36]
 )
-WOOD_FARMING_3 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_3.address, "Rarity Seasoned Wood",
-	3, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2], [6, 18, 72]
+WOOD_FARMING_3 = deployer.deploy(rarity_extended_farming_base,
+	RARITY_FARMING_CORE, WOOD_LOOT_3, 1, 3, "Rarity Seasoned Wood",
+	[WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2], [6, 18, 72]
 )
-WOOD_FARMING_4 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_4.address, "Rarity Hard Wood",
-	4, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3], [6, 18, 36, 120]
+WOOD_FARMING_4 = deployer.deploy(rarity_extended_farming_base,
+	RARITY_FARMING_CORE, WOOD_LOOT_4, 1, 4, "Rarity Hard Wood",
+	[WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3], [6, 18, 36, 120]
 )
-WOOD_FARMING_5 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_5.address, "Rarity Elder Wood",
-	5, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3, WOOD_LOOT_4], [6, 18, 36, 60, 180]
+WOOD_FARMING_5 = deployer.deploy(rarity_extended_farming_base,
+	RARITY_FARMING_CORE, WOOD_LOOT_5, 1, 5, "Rarity Elder Wood",
+	[WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3, WOOD_LOOT_4], [6, 18, 36, 60, 180]
 )
-WOOD_FARMING_6 = deployer.deploy(rarity_extended_farming_base, 1, RARITY_FARMING_CORE, WOOD_LOOT_6.address, "Rarity Ancient Wood",
-	6, [WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3, WOOD_LOOT_4, WOOD_LOOT_5], [6, 18, 36, 60, 90, 252]
+WOOD_FARMING_6 = deployer.deploy(rarity_extended_farming_base,
+	RARITY_FARMING_CORE, WOOD_LOOT_6, 1, 6, "Rarity Ancient Wood",
+	[WOOD_LOOT_0, WOOD_LOOT_1, WOOD_LOOT_2, WOOD_LOOT_3, WOOD_LOOT_4, WOOD_LOOT_5], [6, 18, 36, 60, 90, 252]
 )
 
 # Set the farming as loot minters
@@ -161,6 +171,13 @@ def runFarmFrom0To1():
 
 		if (WOOD_LOOT_0.balanceOf(DEVELOPER[1]) >= 12) and (RARITY_FARMING_CORE.level(DEVELOPER[1], 1) == 1):
 			break
+			
+		dev = accounts.at(DEVELOPER[0])
+		print(Fore.YELLOW + 'UPGRADE LEVEL: ' + convert.to_string(WOOD_FARMING_0.upgradeLevel(DEVELOPER[1])) + Style.RESET_ALL)
+		print(Fore.YELLOW + 'BALANCE OF DEV: ' + convert.to_string(dev.balance()) + Style.RESET_ALL)
+		print(Fore.YELLOW + 'BALANCE OF REWARDS: ' + convert.to_string(rewards.balance()) + Style.RESET_ALL)
+		if WOOD_FARMING_0.upgradeLevel(DEVELOPER[1]) == 0:
+			WOOD_FARMING_0.upgrade(DEVELOPER[1], {"from": DEVELOPER[0], "value": 1e18})
 	
 	WOOD_LOOT_0.approve(DEVELOPER[1], WOOD_FARMING_1.RARITY_EXTENDED_NCP(), 12, {"from": DEVELOPER[0]})
 	WOOD_FARMING_1.unlock(DEVELOPER[1], {"from": DEVELOPER[0]})
@@ -380,11 +397,11 @@ def main():
 	print("RARITY_EXTENDED_WOOD_FARM_6: '" + Fore.GREEN + WOOD_FARMING_6.address + Style.RESET_ALL + "',")
 	print("=================================================================================")
 
-	# runFarmFrom0To1()
+	runFarmFrom0To1()
 	# runFarmFrom1To2()
 	# runFarmFrom2To3()
 	# runFarmFrom3To4()
 	# runFarmFrom4To5()
 	# runFarmFrom5To6()
-	# printStatus()
+	printStatus()
 
