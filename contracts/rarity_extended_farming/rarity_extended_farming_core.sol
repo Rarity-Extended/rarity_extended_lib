@@ -11,7 +11,7 @@ contract rarity_extended_farming_core is Extended, Rarity {
 	string constant public name  = "Rarity Extended Farming Core";
 	uint constant XP_PER_HARVEST = 250;
 
-	constructor() Extended() Rarity(false) {}
+	constructor() Rarity(false) {}
 
 	/*******************************************************************************
 	**  @dev Structure to hold the farm. There is two informations:
@@ -53,7 +53,7 @@ contract rarity_extended_farming_core is Extended, Rarity {
 	function earnXp(uint _adventurer) external returns (uint) {
 		sFarm memory farm = Farm[msg.sender];
 		require(farm.typeOf != 0, "!farm");
-		uint256 xpProgress = XP_PER_HARVEST - (XP_PER_HARVEST * (level[_adventurer][farm.typeOf] - farm.tier) * 20 / 100);
+		uint256 xpProgress = XP_PER_HARVEST - (XP_PER_HARVEST * (level[_adventurer][farm.typeOf] - farm.tier) * 20e8 / 100e8);
 		xp[_adventurer][farm.typeOf] += xpProgress;
 		return xp[_adventurer][farm.typeOf];
 	}

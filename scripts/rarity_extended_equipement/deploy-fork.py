@@ -81,14 +81,14 @@ def addRegistries():
 
 def printEnv():
 	print("=================================================================================")
-	print("RARITY_EQUIPEMENT_WRAPPER_ADDR: " + WRAPPER.address)
-	print("RARITY_EQUIPEMENT_ARMOR_HEAD_ADDR: " + ARMOR_HEAD.address)
-	print("RARITY_EQUIPEMENT_ARMOR_BODY_ADDR: " + ARMOR_BODY.address)
-	print("RARITY_EQUIPEMENT_ARMOR_HAND_ADDR: " + ARMOR_HAND.address)
-	print("RARITY_EQUIPEMENT_ARMOR_FOOT_ADDR: " + ARMOR_FOOT.address)
-	print("RARITY_EQUIPEMENT_WEAPON_PRIMARY_ADDR: " + PRIMARY_WEAPONS.address)
-	print("RARITY_EQUIPEMENT_WEAPON_SECONDARY_ADDR: " + SECONDARY_WEAPONS.address)
-	print("RARITY_EQUIPEMENT_WEAPON_SHIELD: " + SHIELDS.address)
+	print("RARITY_EQUIPEMENT_WRAPPER_ADDR: '" + WRAPPER.address + "',")
+	print("RARITY_EQUIPEMENT_ARMOR_HEAD_ADDR: '" + ARMOR_HEAD.address + "',")
+	print("RARITY_EQUIPEMENT_ARMOR_BODY_ADDR: '" + ARMOR_BODY.address + "',")
+	print("RARITY_EQUIPEMENT_ARMOR_HAND_ADDR: '" + ARMOR_HAND.address + "',")
+	print("RARITY_EQUIPEMENT_ARMOR_FOOT_ADDR: '" + ARMOR_FOOT.address + "',")
+	print("RARITY_EQUIPEMENT_WEAPON_PRIMARY_ADDR: '" + PRIMARY_WEAPONS.address + "',")
+	print("RARITY_EQUIPEMENT_WEAPON_SECONDARY_ADDR: '" + SECONDARY_WEAPONS.address + "',")
+	print("RARITY_EQUIPEMENT_WEAPON_SHIELD: '" + SHIELDS.address + "',")
 	print("=================================================================================")
 
 def main():

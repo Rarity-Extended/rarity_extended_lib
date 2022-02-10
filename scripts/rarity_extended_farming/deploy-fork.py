@@ -361,10 +361,30 @@ def runFarmFrom5To6():
 
 
 def main():
-	runFarmFrom0To1()
-	runFarmFrom1To2()
-	runFarmFrom2To3()
-	runFarmFrom3To4()
-	runFarmFrom4To5()
-	runFarmFrom5To6()
-	printStatus()
+	print("=================================================================================")
+	print("RARITY_EXTENDED_WOOD_LOOT_0: '" + Fore.GREEN + WOOD_LOOT_0.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_LOOT_1: '" + Fore.GREEN + WOOD_LOOT_1.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_LOOT_2: '" + Fore.GREEN + WOOD_LOOT_2.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_LOOT_3: '" + Fore.GREEN + WOOD_LOOT_3.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_LOOT_4: '" + Fore.GREEN + WOOD_LOOT_4.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_LOOT_5: '" + Fore.GREEN + WOOD_LOOT_5.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_LOOT_6: '" + Fore.GREEN + WOOD_LOOT_6.address + Style.RESET_ALL + "',")
+
+	print("RARITY_EXTENDED_FARM_CORE:   '" + Fore.GREEN + RARITY_FARMING_CORE.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_FARM_0: '" + Fore.GREEN + WOOD_FARMING_0.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_FARM_1: '" + Fore.GREEN + WOOD_FARMING_1.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_FARM_2: '" + Fore.GREEN + WOOD_FARMING_2.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_FARM_3: '" + Fore.GREEN + WOOD_FARMING_3.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_FARM_4: '" + Fore.GREEN + WOOD_FARMING_4.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_FARM_5: '" + Fore.GREEN + WOOD_FARMING_5.address + Style.RESET_ALL + "',")
+	print("RARITY_EXTENDED_WOOD_FARM_6: '" + Fore.GREEN + WOOD_FARMING_6.address + Style.RESET_ALL + "',")
+	print("=================================================================================")
+
+	# runFarmFrom0To1()
+	# runFarmFrom1To2()
+	# runFarmFrom2To3()
+	# runFarmFrom3To4()
+	# runFarmFrom4To5()
+	# runFarmFrom5To6()
+	# printStatus()
+

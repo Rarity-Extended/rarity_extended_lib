@@ -108,6 +108,29 @@ contract rarity_extended_farming_base is Rarity {
 	}
 
     /*******************************************************************************
+    **  @dev Estimate the amount of loot the adventurer will get.
+    **	@param _adventurer: adventurer we would like to use with this farm
+    *******************************************************************************/
+	function estimateHarvest(uint _adventurer) public view returns (uint) {
+		uint adventurerLevel = farmingCore.level(_adventurer, typeOf);
+		uint farmLootAmount = _get_random(_adventurer, MAX_REWARD_PER_HARVEST, false);
+        uint extraFarmLootAmount = _get_random(_adventurer, adventurerLevel, true);
+		return extraFarmLootAmount + farmLootAmount;
+	}
+
+    /*******************************************************************************
+    **  @dev Indicate is a summonner has access to this farm
+    **	@param _adventurer: adventurer we would like to use with this farm
+    *******************************************************************************/
+	function adventurerHasAccess(uint _adventurer) public view returns (bool) {
+        return (
+            farmingCore.level(_adventurer, typeOf) >= requiredLevel
+            && 
+		    isUnlocked[_adventurer] || defaultUnlocked
+        );
+	}
+
+    /*******************************************************************************
     **  @dev Random number generator
     **	@param _adventurer: some seed
     **	@param _limit: max amount expected
