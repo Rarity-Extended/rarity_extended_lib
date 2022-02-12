@@ -5,14 +5,11 @@ import "../rERC721Enumerable.sol";
 import "../extended.sol";
 
 contract rarity_extended_basic_set is Extended, rERC721Enumerable {
-
+    string constant public name = "Rarity Extended Basic Sets";
     uint8 constant ARMOR_TYPE = 2;
     uint8 constant WEAPON_TYPE = 3;
-
-    uint public next_item;
-    uint public basicSetPrice;
-    uint public setsIndex = 1;
-    mapping(uint => BasicSet) public sets;
+    uint256 immutable public basicSetPrice;
+    uint public next_item = 1;
     mapping(uint => item) public items;
 
     struct item {
@@ -20,19 +17,34 @@ contract rarity_extended_basic_set is Extended, rERC721Enumerable {
         uint8 item_type;
         uint32 crafted;
         uint crafter;
+        uint tokenID;
     }
 
-    struct BasicSet {
-        string setName;
-        uint8 head;
-        uint8 body;
-        uint8 hand;
-        uint8 foot;
-        uint8 weapon;
-    }
-
-    constructor(address _rm, uint _basicSetPrice) ERC721(_rm) {
+    constructor(address _rm, uint _basicSetPrice) rERC721(_rm, "Basic Set") {
         basicSetPrice = _basicSetPrice;
+    }
+
+    /*******************************************************************************
+    **  @dev: mint a new set in exchange for `basicSetPrice`
+    **  @notice: buys a new set paying the price
+    **  @param setIndex: index of the set to buy
+    **  @param receiver: summoner which will receive the set
+	*******************************************************************************/
+    function buySet(uint _id, uint _receiver) public payable {
+        require(msg.value == basicSetPrice, "!basicSetPrice");
+        require(_id > 0 && _id < 12, "!id");
+
+        uint32 timestamp = uint32(block.timestamp);
+        uint8[6] memory set = set_by_id(_id);
+        for (uint256 index = 0; index < 6; index++) {
+            if (set[index] == 0) {
+                continue;
+            }
+            uint8 itemType = (index == 4 || (index == 5 && set[index] == 19)) ? WEAPON_TYPE : ARMOR_TYPE;
+            items[next_item] = item(itemType, set[index], timestamp, _receiver, next_item);
+            _safeMint(_receiver, next_item++);
+            
+        }
     }
 
     /*******************************************************************************
@@ -43,94 +55,53 @@ contract rarity_extended_basic_set is Extended, rERC721Enumerable {
     }
 
     /*******************************************************************************
-    **  @dev: creates 4 new items (head, body, hand, foot, weapon). Saves on a registry
-    **  @notice: creates a new set
-    **  @param setName: name of the set
-    **  @param headItemType: item type for the head armor
-    **  @param bodyItemType: item type for the body armor
-    **  @param handItemType: item type for the hand armor
-    **  @param footItemType: item type for the foot armor
-    **  @param weaponItemType: item type for the weapon
+    **  @notice: Return the name of a set by it's ID
 	*******************************************************************************/
-    function deployNewSet(
-        string memory setName,
-        uint8 headItemType,
-        uint8 bodyItemType,
-        uint8 handItemType,
-        uint8 footItemType,
-        uint8 weaponItemType
-    ) public onlyExtended {
-        //Save on registry
-        sets[setsIndex] = BasicSet(
-            setName,
-            headItemType,
-            bodyItemType,
-            handItemType,
-            footItemType,
-            weaponItemType
-        );
-        setsIndex++;
+    function get_set_by_id(uint _id) public pure returns (string memory description) {
+        if (_id == 1) return ('Barbarian Basic Set');
+        if (_id == 2) return ('Bard Basic Set');
+        if (_id == 3) return ('Cleric Basic Set');
+        if (_id == 4) return ('Druid Basic Set');
+        if (_id == 5) return ('Fighter Basic Set');
+        if (_id == 6) return ('Monk Basic Set');
+        if (_id == 7) return ('Paladin Basic Set');
+        if (_id == 8) return ('Ranger Basic Set');
+        if (_id == 9) return ('Rogue Basic Set');
+        if (_id == 10) return ('Sorcerer Basic Set');
+        if (_id == 11) return ('Wizard Basic Set');
+        return ('');
     }
 
     /*******************************************************************************
-    **  @dev: mint a new set in exchange for `basicSetPrice`
-    **  @notice: buys a new set paying the price
-    **  @param setIndex: index of the set to buy
-    **  @param receiver: summoner which will receive the set
+    **  @notice: Return the items from the set included. Order is:
+    **  -> Head | Body | Hand | Foot | Primary Weapon | Secondary Weapon/shield
 	*******************************************************************************/
-    function buySet(uint setIndex, uint receiver) public payable {
-        require(msg.value == basicSetPrice, "!basicSetPrice");
-        require(setIndex != 0, "!setIndex");
-
-        uint32 timestamp = uint32(block.timestamp);
-
-        BasicSet memory setToBuy = sets[setIndex];
-        require(setToBuy.head != 0 && setToBuy.body != 0 && setToBuy.hand != 0 && setToBuy.foot != 0, "!emptySet");
-
-        items[next_item] = item(ARMOR_TYPE, setToBuy.head, timestamp, receiver);
-        _safeMint(receiver, next_item);
-        next_item++;
-
-        items[next_item] = item(ARMOR_TYPE, setToBuy.body, timestamp, receiver);
-        _safeMint(receiver, next_item);
-        next_item++;
-
-        items[next_item] = item(ARMOR_TYPE, setToBuy.hand, timestamp, receiver);
-        _safeMint(receiver, next_item);
-        next_item++;
-
-        items[next_item] = item(ARMOR_TYPE, setToBuy.foot, timestamp, receiver);
-        _safeMint(receiver, next_item);
-        next_item++;
-
-        items[next_item] = item(WEAPON_TYPE, setToBuy.weapon, timestamp, receiver);
-        _safeMint(receiver, next_item);
-        next_item++;
+    function set_by_id(uint _id) public pure returns(uint8[6] memory) {
+        if (_id == 1) return ([0, 4, 9, 13, 4, 0]);
+        if (_id == 2) return ([17, 1, 7, 12, 1, 0]);
+        if (_id == 3) return ([15, 5, 10, 13, 3, 19]);
+        if (_id == 4) return ([15, 4, 9, 13, 2, 19]);
+        if (_id == 5) return ([18, 6, 11, 14, 5, 19]);
+        if (_id == 6) return ([0, 1, 8, 12, 8, 0]);
+        if (_id == 7) return ([18, 6, 11, 14, 6, 19]);
+        if (_id == 8) return ([15, 3, 7, 12, 7, 0]);
+        if (_id == 9) return ([15, 3, 7, 12, 1, 1]);
+        if (_id == 10) return ([16, 2, 7, 12, 9, 0]);
+        if (_id == 11) return ([16, 2, 7, 12, 9, 0]);
+        return ([0, 0, 0, 0, 0, 0]);
     }
 
     /*******************************************************************************
-    **  @notice: get type
-    **  @return: a string name with the type name
+    **  @notice: Retrieve all the items for an adventurer
 	*******************************************************************************/
-    function get_type(uint _type_id) public pure returns (string memory _type) {
-       if (_type_id == 2) {
-            _type = "Armor";
-        } else if (_type_id == 3) {
-            _type = "Weapons";
+    function getOwnedItems(uint _adventurerID) public view returns (item[] memory) {
+        require(_adventurerID != uint(0), "cannot retrieve zero address");
+        uint256 arrayLength = balanceOf(_adventurerID);
+        item[] memory _ownedItems = new item[](arrayLength);
+        for (uint256 i = 0; i < arrayLength; i++) {
+            uint256 tokenId = tokenOfOwnerByIndex(_adventurerID, i);
+            _ownedItems[i] = items[tokenId];
         }
+        return _ownedItems;
     }
-
-    /*******************************************************************************
-    **  @notice: get all sets
-    **  @return: an array of BasicSet
-	*******************************************************************************/
-    function getSets() public view returns (BasicSet[] memory) {
-        uint _setsIndex = setsIndex - 1;
-        BasicSet[] memory _sets = new BasicSet[](_setsIndex - 1);
-        for (uint256 i = 0; i < _setsIndex; i++) {
-            _sets[i] = sets[i];
-        }
-        return _sets;
-    }
-
 }

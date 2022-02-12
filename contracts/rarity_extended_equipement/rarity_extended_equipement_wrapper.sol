@@ -1,11 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 import "../extended.sol";
 import "../rarity.sol";
-import "../interfaces/IRarity.sol";
-import "../interfaces/IERC721.sol";
 import "../interfaces/IRarityEquipementBase.sol";
 
 contract rarity_extended_equipement_wrapper is Extended {

@@ -3,268 +3,13 @@ pragma solidity 0.8.10;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "./interfaces/IRarity.sol";
-
-/*
-    This is a modified version of ERC721, updated to use UINT in ADDRESS. 
-    In this case, we attach this NFT to another NFT.
-    Note that uint(0) is equivalent to address(0), so holder of the first NFT is burner address and can't access to some functions in contract
-*/
-
-interface IERC721 {
-    event Transfer(uint indexed from, uint indexed to, uint256 indexed tokenId);
-    event Approval(uint indexed owner, uint indexed approved, uint256 indexed tokenId);
-    event ApprovalForAll(uint indexed owner, uint indexed operator, bool approved);
-    function balanceOf(uint owner) external view returns (uint256 balance);
-    function ownerOf(uint256 tokenId) external view returns (uint owner);
-    function transferFrom(
-        uint operator,
-        uint from,
-        uint to,
-        uint256 tokenId
-    ) external;
-    function approve(uint from, uint to, uint256 tokenId) external;
-    function getApproved(uint256 tokenId) external view returns (uint operator);
-    function setApprovalForAll(uint from, uint operator, bool _approved) external;
-    function isApprovedForAll(uint owner, uint operator) external view returns (bool);
-}
-
-contract ERC721 is IERC721 {
-    using Strings for uint256;
-
-    constructor(address _rarityAddr){
-        rm = IRarity(_rarityAddr);
-    }
-
-    IRarity public rm;
-
-    mapping(uint256 => uint) private _owners;
-    mapping(uint => uint256) private _balances;
-    mapping(uint256 => uint) private _tokenApprovals;
-    mapping(uint => mapping(uint => bool)) private _operatorApprovals;
-
-    function balanceOf(uint owner) public view virtual override returns (uint256) {
-        require(owner != uint(0), "ERC721: balance query for the zero address");
-        return _balances[owner];
-    }
-
-    function ownerOf(uint256 tokenId) public view virtual override returns (uint) {
-        uint owner = _owners[tokenId];
-        require(owner != uint(0), "ERC721: owner query for nonexistent token");
-        return owner;
-    }
-
-    function _baseURI() internal view virtual returns (string memory) {
-        return "";
-    }
-
-    function approve(uint from, uint to, uint256 tokenId) public virtual override {
-        uint owner = ERC721.ownerOf(tokenId);
-        require(_isApprovedOrOwnerOfSummoner(from), "not owner of summoner");
-
-        require(
-            from == owner || isApprovedForAll(owner, from),
-            "ERC721: approve caller is not owner nor approved for all"
-        );
-
-        _approve(to, tokenId);
-    }
-
-    function getApproved(uint256 tokenId) public view virtual override returns (uint) {
-        require(_exists(tokenId), "ERC721: approved query for nonexistent token");
-        return _tokenApprovals[tokenId];
-    }
-
-    function setApprovalForAll(uint from, uint operator, bool approved) public virtual override {
-        require(operator != from, "ERC721: approve to caller");
-        require(_isApprovedOrOwnerOfSummoner(from), "not owner of summoner");
-        _operatorApprovals[from][operator] = approved;
-        emit ApprovalForAll(from, operator, approved);
-    }
-
-    function isApprovedForAll(uint owner, uint operator) public view virtual override returns (bool) {
-        return _operatorApprovals[owner][operator];
-    }
-
-    function transferFrom(
-        uint operator,
-        uint from,
-        uint to,
-        uint256 tokenId
-    ) public virtual override {
-        //solhint-disable-next-line max-line-length
-        require(_isApprovedOrOwnerOfSummoner(from), "ERC721: transfer caller is not owner nor approved");
-        require(_isApprovedOrOwner(operator, tokenId), "ERC721: transfer operator is not owner nor approved");
-        _transfer(from, to, tokenId);
-    }
-
-    /**
-     * @dev Returns whether `tokenId` exists.
-     *
-     * Tokens can be managed by their owner or approved accounts via {approve} or {setApprovalForAll}.
-     *
-     * Tokens start existing when they are minted (`_mint`),
-     * and stop existing when they are burned (`_burn`).
-     */
-    function _exists(uint256 tokenId) internal view virtual returns (bool) {
-        return _owners[tokenId] != uint(0);
-    }
-
-    /**
-     * @dev Returns whether `spender` is allowed to manage `tokenId`.
-     *
-     * Requirements:
-     *
-     * - `tokenId` must exist.
-     */
-    function _isApprovedOrOwner(uint spender, uint256 tokenId) internal view virtual returns (bool) {
-        require(_exists(tokenId), "ERC721: operator query for nonexistent token");
-        uint owner = ERC721.ownerOf(tokenId);
-        return (spender == owner || getApproved(tokenId) == spender || isApprovedForAll(owner, spender));
-    }
-
-    function _isApprovedOrOwnerOfSummoner(uint _summoner) internal view returns (bool) {
-        return rm.getApproved(_summoner) == msg.sender || rm.ownerOf(_summoner) == msg.sender || rm.isApprovedForAll(rm.ownerOf(_summoner), msg.sender);
-    }
-
-    /**
-     * @dev Safely mints `tokenId` and transfers it to `to`.
-     *
-     * Requirements:
-     *
-     * - `tokenId` must not exist.
-     *
-     * Emits a {Transfer} event.
-     */
-    function _safeMint(uint to, uint256 tokenId) internal virtual {
-        _safeMint(to, tokenId, "");
-    }
-
-    /**
-     * @dev Same as {xref-ERC721-_safeMint-address-uint256-}[`_safeMint`], with an additional `data` parameter.
-     */
-    function _safeMint(
-        uint to,
-        uint256 tokenId,
-        bytes memory _data
-    ) internal virtual {
-        _mint(to, tokenId);
-    }
-
-    /**
-     * @dev Mints `tokenId` and transfers it to `to`.
-     *
-     * WARNING: Usage of this method is discouraged, use {_safeMint} whenever possible
-     *
-     * Requirements:
-     *
-     * - `tokenId` must not exist.
-     * - `to` cannot be the zero address.
-     *
-     * Emits a {Transfer} event.
-     */
-    function _mint(uint to, uint256 tokenId) internal virtual {
-        require(to != uint(0), "ERC721: mint to the zero address");
-        require(!_exists(tokenId), "ERC721: token already minted");
-
-        _beforeTokenTransfer(uint(0), to, tokenId);
-
-        _balances[to] += 1;
-        _owners[tokenId] = to;
-
-        emit Transfer(uint(0), to, tokenId);
-    }
-
-    /**
-     * @dev Destroys `tokenId`.
-     * The approval is cleared when the token is burned.
-     *
-     * Requirements:
-     *
-     * - `tokenId` must exist.
-     *
-     * Emits a {Transfer} event.
-     */
-    function _burn(uint256 tokenId) internal virtual {
-        uint owner = ERC721.ownerOf(tokenId);
-
-        _beforeTokenTransfer(owner, uint(0), tokenId);
-
-        // Clear approvals
-        _approve(uint(0), tokenId);
-
-        _balances[owner] -= 1;
-        delete _owners[tokenId];
-
-        emit Transfer(owner, uint(0), tokenId);
-    }
-
-    /**
-     * @dev Transfers `tokenId` from `from` to `to`.
-     *  As opposed to {transferFrom}, this imposes no restrictions on msg.sender.
-     *
-     * Requirements:
-     *
-     * - `to` cannot be the zero address.
-     * - `tokenId` token must be owned by `from`.
-     *
-     * Emits a {Transfer} event.
-     */
-    function _transfer(
-        uint from,
-        uint to,
-        uint256 tokenId
-    ) internal virtual {
-        require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer of token that is not own");
-        require(to != uint(0), "ERC721: transfer to the zero address");
-
-        _beforeTokenTransfer(from, to, tokenId);
-
-        // Clear approvals from the previous owner
-        _approve(uint(0), tokenId);
-
-        _balances[from] -= 1;
-        _balances[to] += 1;
-        _owners[tokenId] = to;
-
-        emit Transfer(from, to, tokenId);
-    }
-
-    /**
-     * @dev Approve `to` to operate on `tokenId`
-     *
-     * Emits a {Approval} event.
-     */
-    function _approve(uint to, uint256 tokenId) internal virtual {
-        _tokenApprovals[tokenId] = to;
-        emit Approval(ERC721.ownerOf(tokenId), to, tokenId);
-    }
-
-    /**
-     * @dev Hook that is called before any token transfer. This includes minting
-     * and burning.
-     *
-     * Calling conditions:
-     *
-     * - When `from` and `to` are both non-zero, ``from``'s `tokenId` will be
-     * transferred to `to`.
-     * - When `from` is zero, `tokenId` will be minted for `to`.
-     * - When `to` is zero, ``from``'s `tokenId` will be burned.
-     * - `from` and `to` are never both zero.
-     *
-     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
-     */
-    function _beforeTokenTransfer(
-        uint from,
-        uint to,
-        uint256 tokenId
-    ) internal virtual {}
-}
+import "./utils/rERC721.sol";
 
 /**
  * @title ERC-721 Non-Fungible Token Standard, optional enumeration extension
  * @dev See https://eips.ethereum.org/EIPS/eip-721
  */
-interface IERC721Enumerable is IERC721 {
+interface IrERC721Enumerable is IrERC721 {
     /**
      * @dev Returns the total amount of tokens stored by the contract.
      */
@@ -288,7 +33,7 @@ interface IERC721Enumerable is IERC721 {
  * enumerability of all the token ids in the contract as well as all token ids owned by each
  * account.
  */
-abstract contract rERC721Enumerable is ERC721, IERC721Enumerable {
+abstract contract rERC721Enumerable is rERC721, IrERC721Enumerable {
 
     // Mapping from owner to list of owned token IDs
     mapping(uint => mapping(uint256 => uint256)) private _ownedTokens;
@@ -306,7 +51,7 @@ abstract contract rERC721Enumerable is ERC721, IERC721Enumerable {
      * @dev See {IERC721Enumerable-tokenOfOwnerByIndex}.
      */
     function tokenOfOwnerByIndex(uint owner, uint256 index) public view virtual override returns (uint256) {
-        require(index < ERC721.balanceOf(owner), "ERC721Enumerable: owner index out of bounds");
+        require(index < rERC721.balanceOf(owner), "ERC721Enumerable: owner index out of bounds");
         return _ownedTokens[owner][index];
     }
 
@@ -365,7 +110,7 @@ abstract contract rERC721Enumerable is ERC721, IERC721Enumerable {
      * @param tokenId uint256 ID of the token to be added to the tokens list of the given address
      */
     function _addTokenToOwnerEnumeration(uint to, uint256 tokenId) private {
-        uint256 length = ERC721.balanceOf(to);
+        uint256 length = rERC721.balanceOf(to);
         _ownedTokens[to][length] = tokenId;
         _ownedTokensIndex[tokenId] = length;
     }
@@ -391,7 +136,7 @@ abstract contract rERC721Enumerable is ERC721, IERC721Enumerable {
         // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
 
-        uint256 lastTokenIndex = ERC721.balanceOf(from) - 1;
+        uint256 lastTokenIndex = rERC721.balanceOf(from) - 1;
         uint256 tokenIndex = _ownedTokensIndex[tokenId];
 
         // When the token to delete is the last token, the swap operation is unnecessary

@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-contract basic_set_armors_codex {
+contract rarity_extended_basic_set_armor_codex {
     string constant public index = "Items";
     string constant public class = "Armor";
     
@@ -29,54 +29,25 @@ contract basic_set_armors_codex {
         string memory name,
         string memory description
     ) {
-        if (_id == 1) {
-            return padded();
-        } else if (_id == 2) {
-            return robe();
-        } else if (_id == 3) {
-            return leather();
-        } else if (_id == 4) {
-            return hide();
-        } else if (_id == 5) {
-            return chain_shirt();
-        } else if (_id == 6) {
-            return splint_mail();
-        }
-        
-        if (_id == 7) {
-            return light_gloves();
-        } else if (_id == 8) {
-            return cestus();
-        } else if (_id == 9) {
-            return leather_gloves();
-        } else if (_id == 10) {
-            return metal_gloves();
-        } else if (_id == 11) {
-            return armored_bracers();
-        }
-        
-        if (_id == 12) {
-            return light_shoes();
-        } else if (_id == 13) {
-            return stuffed_boots();
-        } else if (_id == 14) {
-            return war_boots();
-        }
-        
-        if (_id == 15) {
-            return hood();
-        } else if (_id == 16) {
-            return magician_hat();
-        } else if (_id == 17) {
-            return fancy_hat();
-        } else if (_id == 18) {
-            return warrior_helmet();
-        }
-        
-        if (_id == 19) {
-            return practice_shield();
-        }
-
+        if (_id == 1) return padded();
+        else if (_id == 2) return robe();
+        else if (_id == 3) return leather();
+        else if (_id == 4) return hide();
+        else if (_id == 5) return chain_shirt();
+        else if (_id == 6) return splint_mail();
+        else if (_id == 7) return light_gloves();
+        else if (_id == 8) return cestus();
+        else if (_id == 9) return leather_gloves();
+        else if (_id == 10) return metal_gloves();
+        else if (_id == 11) return armored_bracers();
+        else if (_id == 12) return light_shoes();
+        else if (_id == 13) return stuffed_boots();
+        else if (_id == 14) return war_boots();
+        else if (_id == 15) return hood();
+        else if (_id == 16) return magician_hat();
+        else if (_id == 17) return fancy_hat();
+        else if (_id == 18) return warrior_helmet();
+        else if (_id == 19) return practice_shield();
     }
 
     /*******************************************************************************

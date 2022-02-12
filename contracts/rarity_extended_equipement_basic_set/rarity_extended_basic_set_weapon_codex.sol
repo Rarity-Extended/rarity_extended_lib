@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-contract basic_set_weapons_codex {
+contract rarity_extended_basic_set_weapon_codex {
     string constant public index = "Items";
     string constant public class = "Weapons";
     
@@ -57,25 +57,15 @@ contract basic_set_weapons_codex {
     }
 
     function item_by_id(uint _id) public pure returns(weapon memory _weapon) {
-        if (_id == 1) {
-            return dagger();
-        } else if (_id == 2) {
-            return sickle();
-        } else if (_id == 3) {
-            return hammer_light();
-        } else if (_id == 4) {
-            return greataxe();
-        } else if (_id == 5) {
-            return sword_short();
-        } else if (_id == 6) {
-            return longsword();
-        } else if (_id == 7) {
-			return longbow();
-		} else if (_id == 8) {
-			return gauntlet();
-		} else if (_id == 9) {
-			return wand();
-		}
+        if (_id == 1) return dagger();
+        else if (_id == 2) return sickle();
+        else if (_id == 3) return hammer_light();
+        else if (_id == 4) return greataxe();
+        else if (_id == 5) return sword_short();
+        else if (_id == 6) return longsword();
+        else if (_id == 7) return longbow();
+		else if (_id == 8) return gauntlet();
+		else if (_id == 9) return wand();
     }
 
     function dagger() public pure returns (weapon memory _weapon) {
@@ -201,7 +191,7 @@ contract basic_set_weapons_codex {
     function wand() public pure returns (weapon memory _weapon) {
         _weapon.id = 9;
         _weapon.name = "Wand";
-        _weapon.cost = 5e17;
+        _weapon.cost = 5e18;
         _weapon.proficiency = 1;
         _weapon.encumbrance = 2;
         _weapon.damage_type = 4;

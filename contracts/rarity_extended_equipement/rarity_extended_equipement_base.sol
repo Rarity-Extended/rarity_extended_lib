@@ -107,7 +107,28 @@ abstract contract rarity_extended_equipement_base is ERC721Holder, Extended, Rar
         _handle_specific_situations(_adventurer, codex, item_type);
 
         equipement[_adventurer] = Equipement(_tokenID, minter, true);
-        IrERC721(minter).transferFrom(_adventurer, RARITY_EXTENDED_NCP, _tokenID);
+        IrERC721(minter).transferFrom(RARITY_EXTENDED_NCP, _adventurer, RARITY_EXTENDED_NCP, _tokenID);
+    }
+
+    function set_rEquipement(uint _adventurer, uint _operator, address _registry, uint256 _tokenID, uint256 deadline, bytes calldata signature) virtual public {
+        address codex = codexes[_registry];
+        require(codex != address(0), "!registered");
+
+        address minter = minters[_registry];
+        require(minter != address(0), "!minter");
+
+        IrERC721(minter).permit(RARITY_EXTENDED_NCP, _adventurer, RARITY_EXTENDED_NCP, _tokenID, deadline, signature);
+
+        (uint8 base_type, uint8 item_type,,) = IEquipementSource(_registry).items(_tokenID);
+        require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
+        require(_isApprovedOrOwnerOfItem(_tokenID, IrERC721(minter), _operator), "!equipement");
+		require(base_type == equipementItemType, "!base_type");
+        require(equipement[_adventurer].registry == address(0), "!already_equiped");
+
+        _handle_specific_situations(_adventurer, codex, item_type);
+
+        equipement[_adventurer] = Equipement(_tokenID, minter, true);
+        IrERC721(minter).transferFrom(RARITY_EXTENDED_NCP, _adventurer, RARITY_EXTENDED_NCP, _tokenID);
     }
 
 	/*******************************************************************************
@@ -139,6 +160,7 @@ abstract contract rarity_extended_equipement_base is ERC721Holder, Extended, Rar
 
         if (equipementInfo.fromAdventurer) {
             IrERC721(equipementInfo.registry).transferFrom(
+                RARITY_EXTENDED_NCP,
                 RARITY_EXTENDED_NCP,
                 _adventurer,
                 equipementInfo.tokenID
