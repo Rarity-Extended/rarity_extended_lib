@@ -43,9 +43,9 @@ THEFOREST_JEWELRY_CODEX = deployer.deploy(theForest_jewelry_codex)
 THEFOREST_WEAPONS_CODEX = deployer.deploy(theForest_weapon_codex)
 
 # Deploying the Equipement system
-RARITY_CRAFTING = Contract.from_explorer(RARITY_CRAFTING_ADDR);
-THE_FOREST = Contract.from_explorer(THE_FOREST_ADDR);
-RARITY_MANIFEST = Contract.from_explorer(RARITY_MANIFEST_ADDR);
+RARITY_CRAFTING = Contract.from_explorer(RARITY_CRAFTING_ADDR)
+THE_FOREST = Contract.from_explorer(THE_FOREST_ADDR)
+RARITY_MANIFEST = Contract.from_explorer(RARITY_MANIFEST_ADDR)
 WRAPPER = deployer.deploy(rarity_extended_equipement_wrapper)
 # Deploying the initial set of equipements
 ARMOR_HEAD = deployer.deploy(rarity_extended_equipement_armor_head, 2, 1, WRAPPER)
@@ -56,13 +56,29 @@ PRIMARY_WEAPONS = deployer.deploy(rarity_extended_equipement_primary_weapon, 3, 
 SECONDARY_WEAPONS = deployer.deploy(rarity_extended_equipement_secondary_weapon, 3, 6, WRAPPER)
 SHIELDS = deployer.deploy(rarity_extended_equipement_shield, 2, 101, WRAPPER)
 # Linking the slots, the wrapped and the contracts
-WRAPPER.registerSlot(ARMOR_HEAD);
-WRAPPER.registerSlot(ARMOR_BODY);
-WRAPPER.registerSlot(ARMOR_HAND);
-WRAPPER.registerSlot(ARMOR_FOOT);
-WRAPPER.registerSlot(PRIMARY_WEAPONS);
-WRAPPER.registerSlot(SECONDARY_WEAPONS);
-WRAPPER.registerSlot(SHIELDS);
+WRAPPER.registerSlot(ARMOR_HEAD)
+WRAPPER.registerSlot(ARMOR_BODY)
+WRAPPER.registerSlot(ARMOR_HAND)
+WRAPPER.registerSlot(ARMOR_FOOT)
+WRAPPER.registerSlot(PRIMARY_WEAPONS)
+WRAPPER.registerSlot(SECONDARY_WEAPONS)
+WRAPPER.registerSlot(SHIELDS)
+# Try cleaning slots
+WRAPPER.cleanSlot(1)
+WRAPPER.cleanSlot(2)
+WRAPPER.cleanSlot(3)
+WRAPPER.cleanSlot(4)
+WRAPPER.cleanSlot(5)
+WRAPPER.cleanSlot(6)
+WRAPPER.cleanSlot(101)
+# Clean is working well, link slots again
+WRAPPER.registerSlot(ARMOR_HEAD)
+WRAPPER.registerSlot(ARMOR_BODY)
+WRAPPER.registerSlot(ARMOR_HAND)
+WRAPPER.registerSlot(ARMOR_FOOT)
+WRAPPER.registerSlot(PRIMARY_WEAPONS)
+WRAPPER.registerSlot(SECONDARY_WEAPONS)
+WRAPPER.registerSlot(SHIELDS)
 
 def stealItems():
 	RARITY_CRAFTING.safeTransferFrom(OWNER_OF_CRAFTED_SHIELD[0], DEVELOPER[0], OWNER_OF_CRAFTED_SHIELD[2], {'from': OWNER_OF_CRAFTED_SHIELD[0]})
