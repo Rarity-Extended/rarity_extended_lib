@@ -24,9 +24,9 @@ interface IrERC721 {
         uint to,
         uint256 tokenId
     ) external;
-    function approve(uint from, uint to, uint256 tokenId) external;
-    function getApproved(uint from, uint256 tokenId) external view returns (uint operator);
-    function setApprovalForAll(uint from, uint operator, bool _approved) external;
+    function approve(uint owner, uint to, uint256 tokenId) external;
+    function getApproved(uint owner, uint256 tokenId) external view returns (uint operator);
+    function setApprovalForAll(uint owner, uint operator, bool _approved) external;
     function isApprovedForAll(uint owner, uint operator) external view returns (bool);
     function permit(
         uint operator,

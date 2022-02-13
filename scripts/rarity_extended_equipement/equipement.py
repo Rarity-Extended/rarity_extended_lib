@@ -26,15 +26,15 @@ RARITY_CRAFTING_TYPE3_CODEX_ADDR = '0xeE1a2EA55945223404d73C0BbE57f540BBAAD0D8'
 THE_FOREST_ADDR = '0x48e6F88F1Ab05677675dE9d14a705f8A137ea2bC'
 
 # Some Addresses to use for the tests
-DEVELOPER = ['0x9E63B020ae098E73cF201EE1357EDc72DFEaA518', '636245']
-OWNER_OF_CRAFTED_SHIELD = ['0xDeA98C16E02dDC053EfEf2C75ca7B42f2DB6c678', '733580', '241']
-OWNER_OF_CRAFTED_SHIELD_2 = ['0xDeA98C16E02dDC053EfEf2C75ca7B42f2DB6c678', '733308', '239']
-OWNER_OF_CRAFTED_ARMOR = ['0xDeA98C16E02dDC053EfEf2C75ca7B42f2DB6c678', '998384', '245']
-OWNER_OF_CRAFTED_WEAPON = ['0xcA59B2035A32DD673eD1BbddD0908341DE171663', '1354632', '4516']
-OWNER_OF_CRAFTED_WEAPON2 = ['0xE3fDc2133845D20D53FbF38ef99194065eEdB5C6', '1486439', '4515']
-OWNER_OF_CRAFTED_WEAPON_2HANDED = ['0xebabaCb71E6bed4Cc388745eB4d232e3E99d7e2A', '1851612', '4520']
-OWNER_OF_CRAFTED_WEAPON_RANGED = ['0xEA017EcF13732146237E3DDf5d234E4C178179DF', '1317318', '4519']
-OWNER_OF_THE_FOREST_WEAPON = ['0x3daee7602D159517CD7FfF8968b93E40B90071c0', '193188', '10']
+DEVELOPER = ['0x9E63B020ae098E73cF201EE1357EDc72DFEaA518', 636245]
+OWNER_OF_CRAFTED_SHIELD = ['0xDeA98C16E02dDC053EfEf2C75ca7B42f2DB6c678', 733580, 241]
+OWNER_OF_CRAFTED_SHIELD_2 = ['0xDeA98C16E02dDC053EfEf2C75ca7B42f2DB6c678', 733308, 239]
+OWNER_OF_CRAFTED_ARMOR = ['0xDeA98C16E02dDC053EfEf2C75ca7B42f2DB6c678', 998384, 245]
+OWNER_OF_CRAFTED_WEAPON = ['0xcA59B2035A32DD673eD1BbddD0908341DE171663', 1354632, 4516]
+OWNER_OF_CRAFTED_WEAPON2 = ['0xE3fDc2133845D20D53FbF38ef99194065eEdB5C6', 1486439, 4515]
+OWNER_OF_CRAFTED_WEAPON_2HANDED = ['0xebabaCb71E6bed4Cc388745eB4d232e3E99d7e2A', 1851612, 4520]
+OWNER_OF_CRAFTED_WEAPON_RANGED = ['0xEA017EcF13732146237E3DDf5d234E4C178179DF', 1317318, 4519]
+OWNER_OF_THE_FOREST_WEAPON = ['0x3daee7602D159517CD7FfF8968b93E40B90071c0', 193188, 10]
 
 # Deploying The Forest Items Codexes
 THEFOREST_PROXY_ITEMS = deployer.deploy(theForestProxyItems)
@@ -393,94 +393,16 @@ def deployWithDev():
 	SHIELDS.addRegistry(RARITY_CRAFTING_ADDR, RARITY_CRAFTING_ADDR, RARITY_CRAFTING_TYPE2_CODEX_ADDR)
 	PRIMARY_WEAPONS.addRegistry(THEFOREST_PROXY_ITEMS, THE_FOREST_ADDR, THEFOREST_WEAPONS_CODEX)
 
+	print('\nRUNNING TESTS ---------------------------\n')
 	# Perform basic checks, will be the same for every contract because based on the same BASE
-	# checkSituations()
-	# checkSpecificSituationsBody()
-	# checkSpecificSituationsPrimaryWeapon()
-	# checkSpecificSituationsSecondaryWeapon()
-	# checkSpecificSituationsShield()
+	checkSituations()
+	checkSpecificSituationsBody()
+	checkSpecificSituationsPrimaryWeapon()
+	checkSpecificSituationsSecondaryWeapon()
+	checkSpecificSituationsShield()
 
 	# checkPrimaryWeaponRarity()
 
 def main():
 	stealItems()
 	deployWithDev()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# deployer = accounts[0] # or accounts.load('rarityextended')
-
-# # Some of the address for Rarity
-# RARITY_MANIFEST_ADDR = '0xce761D788DF608BD21bdd59d6f4B54b2e27F25Bb'
-# THE_FOREST_ADDR = '0x48e6F88F1Ab05677675dE9d14a705f8A137ea2bC'
-
-# # Some Addresses to use for the tests
-# DEVELOPER = ['0x9E63B020ae098E73cF201EE1357EDc72DFEaA518', '636245']
-# OWNER_OF_THE_FOREST_WEAPON = ['0x3daee7602D159517CD7FfF8968b93E40B90071c0', '193188', '10']
-
-# # Deploying The Forest Items Codexes
-# THEFOREST_PROXY_ITEMS = deployer.deploy(theForestProxyItems)
-# THEFOREST_ARMOR_CODEX = deployer.deploy(theForest_armor_codex)
-# THEFOREST_JEWELRY_CODEX = deployer.deploy(theForest_jewelry_codex)
-# THEFOREST_WEAPONS_CODEX = deployer.deploy(theForest_weapon_codex)
-
-# # Deploying the Equipement system
-# THE_FOREST = Contract.from_explorer(THE_FOREST_ADDR);
-# RARITY_MANIFEST = Contract.from_explorer(RARITY_MANIFEST_ADDR);
-
-# WRAPPER = deployer.deploy(rarity_extended_equipement_wrapper)
-# # Deploying the initial set of equipements
-# PRIMARY_WEAPONS = deployer.deploy(rarity_extended_equipement_primary_weapon, 3, 5, WRAPPER)
-# SECONDARY_WEAPONS = deployer.deploy(rarity_extended_equipement_secondary_weapon, 3, 6, WRAPPER)
-# SHIELDS = deployer.deploy(rarity_extended_equipement_shield, 2, 101, WRAPPER)
-# # Linking the slots, the wrapped and the contracts
-# WRAPPER.registerSlot(5, PRIMARY_WEAPONS);
-# WRAPPER.registerSlot(6, SECONDARY_WEAPONS);
-# WRAPPER.registerSlot(101, SHIELDS);
-
-# PRIMARY_WEAPONS.addRegistry(THEFOREST_PROXY_ITEMS, THE_FOREST_ADDR, THEFOREST_WEAPONS_CODEX)
-# THE_FOREST.transferFrom(OWNER_OF_THE_FOREST_WEAPON[1], DEVELOPER[1], OWNER_OF_THE_FOREST_WEAPON[2], {'from': OWNER_OF_THE_FOREST_WEAPON[0]})
-
-
-
-# PRIMARY_WEAPONS_MANAGER = PRIMARY_WEAPONS.RARITY_EXTENDED_NCP()
-# THE_FOREST.approve(DEVELOPER[1], PRIMARY_WEAPONS_MANAGER, OWNER_OF_THE_FOREST_WEAPON[2], {'from': DEVELOPER[0]})
-# RARITY_MANIFEST.setApprovalForAll(PRIMARY_WEAPONS, True, {'from': DEVELOPER[0]}) # Bug with the forest, need approval for all
-# RARITY_MANIFEST.setApprovalForAll(THE_FOREST, True, {'from': DEVELOPER[0]}) # Bug with the forest, need approval for all
-
-# PRIMARY_WEAPONS.set_rEquipement(DEVELOPER[1], DEVELOPER[1], THEFOREST_PROXY_ITEMS, OWNER_OF_THE_FOREST_WEAPON[2], {'from': DEVELOPER[0]})
-# assert THE_FOREST.ownerOf(OWNER_OF_THE_FOREST_WEAPON[2]) == PRIMARY_WEAPONS_MANAGER
-# tx = PRIMARY_WEAPONS.unset_equipement(DEVELOPER[1], {'from': DEVELOPER[0]})
-# assert THE_FOREST.ownerOf(OWNER_OF_THE_FOREST_WEAPON[2]) == DEVELOPER[1]
-
-
-
-
-# # function _isApprovedOrOwnerOfSummoner(uint _summoner) internal view returns (bool) {
-# # 	return
-# # 	rm.getApproved(_summoner) == msg.sender ||
-# # 	rm.ownerOf(_summoner) == msg.sender ||
-# # 	rm.isApprovedForAll(
-# # 		rm.ownerOf(_summoner), msg.sender
-# # 	);
-# # }

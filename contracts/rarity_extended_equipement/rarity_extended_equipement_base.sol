@@ -60,6 +60,7 @@ abstract contract rarity_extended_equipement_base is ERC721Holder, Extended, Rar
 	**	equipement, or it must be an approve address.
     **  The ERC721 is transfered to this contract, aka locked. The player will have
 	**	to unset the armor before it can be transfered to another player.
+    **  @param _owner: current owner of the NFT
     **  @param _adventurer: TokenID of the adventurer we want to assign to
     **	@param _operator: Address in which name we are acting for.
     **	@param _registry: Address of the contract from which is generated the ERC721
@@ -68,67 +69,92 @@ abstract contract rarity_extended_equipement_base is ERC721Holder, Extended, Rar
     function set_equipement(uint _adventurer, address _operator, address _registry, uint256 _tokenID) virtual public {
         address codex = codexes[_registry];
         require(codex != address(0), "!registered");
+        address minter = minters[_registry];
+        require(minter != address(0), "!minter");
 
         (uint8 base_type, uint8 item_type,,) = IEquipementSource(_registry).items(_tokenID);
         require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
-        require(_isApprovedOrOwnerOfItem(_tokenID, IERC721(_registry), msg.sender), "!equipement"); 
+        require(_isApprovedOrOwnerOfItem(_tokenID, IERC721(minter), msg.sender), "!equipement"); 
 		require(base_type == equipementItemType, "!base_type");
         require(equipement[_adventurer].registry == address(0), "!already_equiped");
 
         _handle_specific_situations(_adventurer, codex, item_type);
-        equipement[_adventurer] = Equipement(_tokenID, _registry, false);
-        IERC721(_registry).safeTransferFrom(_operator, address(this), _tokenID);
+        equipement[_adventurer] = Equipement(_tokenID, minter, false);
+        IERC721(minter).safeTransferFrom(_operator, address(this), _tokenID);
     }
 
 	/*******************************************************************************
-    **  @dev Assign an equipement to an adventurer. If the adventurer already has
+    **  @notice Assign an equipement to an adventurer. If the adventurer already has
 	**	one, it will revert. The owner of the adventurer must be the owner of the
 	**	equipement, or it must be an approve address.
     **  The ERC721 is transfered to this contract, aka locked. The player will have
 	**	to unset the armor before it can be transfered to another player.
-    **  @param _adventurer: the tokenID of the adventurer we want to assign the armor to
+    **  @param _adventurer: the tokenID of the adventurer to assign the armor
     **	@param _operator: adventurer in which name we are acting for.
-    **	@param _registry: address of the base contract for this item, aka with which we will interact to transfer the item
+    **	@param _registry: address of the base contract for this item, aka with
+    **  which we will interact to transfer the item
     **	@param _tokenID: the tokenID of the armor
 	*******************************************************************************/
-    function set_rEquipement(uint _adventurer, uint _operator, address _registry, uint256 _tokenID) virtual public {
+    function set_rEquipement(
+        uint _adventurer,
+        uint _operator,
+        address _registry,
+        uint256 _tokenID
+    ) virtual public {
         address codex = codexes[_registry];
         require(codex != address(0), "!registered");
-
         address minter = minters[_registry];
         require(minter != address(0), "!minter");
+        uint owner = IrERC721(minter).ownerOf(_tokenID);
 
         (uint8 base_type, uint8 item_type,,) = IEquipementSource(_registry).items(_tokenID);
-        require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
+        require(_isApprovedOrOwner(owner, msg.sender), "!owner");
         require(_isApprovedOrOwnerOfItem(_tokenID, IrERC721(minter), _operator), "!equipement");
 		require(base_type == equipementItemType, "!base_type");
         require(equipement[_adventurer].registry == address(0), "!already_equiped");
 
         _handle_specific_situations(_adventurer, codex, item_type);
 
+        IrERC721(minter).transferFrom(
+            /* operator = */ RARITY_EXTENDED_NCP,
+            /* from = */ owner,
+            /* to = */ RARITY_EXTENDED_NCP,
+            /* id = */ _tokenID
+        );
         equipement[_adventurer] = Equipement(_tokenID, minter, true);
-        IrERC721(minter).transferFrom(RARITY_EXTENDED_NCP, _adventurer, RARITY_EXTENDED_NCP, _tokenID);
     }
 
-    function set_rEquipement(uint _adventurer, uint _operator, address _registry, uint256 _tokenID, uint256 deadline, bytes calldata signature) virtual public {
+    function set_rEquipement(
+        uint _adventurer,
+        uint _operator,
+        address _registry,
+        uint256 _tokenID,
+        uint256 deadline,
+        bytes calldata signature
+    ) virtual public {
         address codex = codexes[_registry];
         require(codex != address(0), "!registered");
-
         address minter = minters[_registry];
         require(minter != address(0), "!minter");
+        uint owner = IrERC721(minter).ownerOf(_tokenID);
 
-        IrERC721(minter).permit(RARITY_EXTENDED_NCP, _adventurer, RARITY_EXTENDED_NCP, _tokenID, deadline, signature);
+        IrERC721(minter).permit(RARITY_EXTENDED_NCP, owner, RARITY_EXTENDED_NCP, _tokenID, deadline, signature);
 
         (uint8 base_type, uint8 item_type,,) = IEquipementSource(_registry).items(_tokenID);
-        require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
+        require(_isApprovedOrOwner(owner, msg.sender), "!owner");
         require(_isApprovedOrOwnerOfItem(_tokenID, IrERC721(minter), _operator), "!equipement");
 		require(base_type == equipementItemType, "!base_type");
         require(equipement[_adventurer].registry == address(0), "!already_equiped");
 
         _handle_specific_situations(_adventurer, codex, item_type);
 
+        IrERC721(minter).transferFrom(
+            /* operator = */ RARITY_EXTENDED_NCP,
+            /* from = */ owner,
+            /* to = */ RARITY_EXTENDED_NCP,
+            /* id = */ _tokenID
+        );
         equipement[_adventurer] = Equipement(_tokenID, minter, true);
-        IrERC721(minter).transferFrom(RARITY_EXTENDED_NCP, _adventurer, RARITY_EXTENDED_NCP, _tokenID);
     }
 
 	/*******************************************************************************
