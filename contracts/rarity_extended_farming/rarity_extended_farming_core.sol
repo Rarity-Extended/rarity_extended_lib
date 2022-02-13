@@ -7,9 +7,9 @@ import "../rarity.sol";
 import "../interfaces/IRarity.sol";
 import "../interfaces/IRarityFarmBase.sol";
 
-contract rarity_extended_farming_core is Extended, Rarity {
-	string constant public name  = "Rarity Extended Farming Core";
-	uint constant XP_PER_HARVEST = 250;
+contract RarityExtendedFarmingCore is Extended, Rarity {
+	string constant public NAME  = "Rarity Extended Farming Core";
+	uint constant public XP_PER_HARVEST = 250;
 
 	constructor() Rarity(false) {}
 
@@ -18,12 +18,12 @@ contract rarity_extended_farming_core is Extended, Rarity {
 	**  - typeOf, aka type of farm (1 for wood, 2 minerals, etc.)
 	**	- tier, aka level of the farm, rarity tier.
 	*******************************************************************************/
-	struct sFarm {
+	struct Farm {
 		uint typeOf;
 		uint tier;
 	}
 
-	mapping(address => sFarm) public Farm; //Farm contract -> farmingType
+	mapping(address => Farm) public farm; //farm contract -> farmingType
 	mapping(uint => mapping(uint => uint)) public level; //adventurer -> farmingType -> level
 	mapping(uint => mapping(uint => uint)) public xp; //adventurer -> farmingType -> xp
 
@@ -39,8 +39,8 @@ contract rarity_extended_farming_core is Extended, Rarity {
 		uint8 farmType = IRarityFarmBase(_farm).typeOf();
 		uint8 farmRequiredLevel = IRarityFarmBase(_farm).requiredLevel();
 		require(farmType != 0, "!farm");
-		require(Farm[_farm].typeOf == 0, '!new');
-		Farm[_farm] = sFarm(farmType, farmRequiredLevel);
+		require(farm[_farm].typeOf == 0, '!new');
+		farm[_farm] = Farm(farmType, farmRequiredLevel);
 	}
 
 	/*******************************************************************************
@@ -51,11 +51,11 @@ contract rarity_extended_farming_core is Extended, Rarity {
 	**	@param _adventurer: adventurer to give some XP
 	*******************************************************************************/
 	function earnXp(uint _adventurer) external returns (uint) {
-		sFarm memory farm = Farm[msg.sender];
-		require(farm.typeOf != 0, "!farm");
-		uint256 xpProgress = XP_PER_HARVEST - (XP_PER_HARVEST * (level[_adventurer][farm.typeOf] - farm.tier) * 20e8 / 100e8);
-		xp[_adventurer][farm.typeOf] += xpProgress;
-		return xp[_adventurer][farm.typeOf];
+		Farm memory _farm = farm[msg.sender];
+		require(_farm.typeOf != 0, "!farm");
+		uint256 xpProgress = XP_PER_HARVEST - (XP_PER_HARVEST * (level[_adventurer][_farm.typeOf] - _farm.tier) * 20e8 / 100e8);
+		xp[_adventurer][_farm.typeOf] += xpProgress;
+		return xp[_adventurer][_farm.typeOf];
 	}
 
 	/*******************************************************************************
