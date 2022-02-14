@@ -121,7 +121,7 @@ abstract contract EIP712 {
 }
 
 
-contract rERC721 is IrERC721, EIP712 {
+abstract contract rERC721 is IrERC721, EIP712 {
     using Counters for Counters.Counter;
     using Strings for uint256;
 
@@ -286,6 +286,7 @@ contract rERC721 is IrERC721, EIP712 {
         uint256 tokenId,
         bytes memory _data
     ) internal virtual {
+        _data;
         _mint(to, tokenId);
     }
 
