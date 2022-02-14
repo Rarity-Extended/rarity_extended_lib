@@ -22,9 +22,9 @@
     "hardhat-tracer": "^1.0.0-alpha.6",
     "mocha": "^7.2.0"
   },
-  "name": "@rarityextended/rarity_extended_lib",
+  "name": "@rarityextended/contracts",
   "description": "Hello to the world of Rarity Extended!   Here, you will be able to find our most recent additions to the game. Theses additions can take various forms, from new items to new abilities to new enemies, or simply to helpers or facilitators.",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "files": [
     "/contracts/**/*.sol"
   ],
