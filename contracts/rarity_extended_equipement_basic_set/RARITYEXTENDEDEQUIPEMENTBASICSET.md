@@ -1,0 +1,1 @@
+## RarityExtended Equipement Basic Set

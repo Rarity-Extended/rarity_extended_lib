@@ -1,0 +1,1 @@
+## RarityExtended Cooking Helper
