@@ -59,6 +59,16 @@ contract rarity_extended_equipement_wrapper is ERC721Holder, Extended, Rarity {
     }
 
     /*******************************************************************************
+    **  @notice Clean a slot, remove approvals
+    **  @param _slot: ID of the slot we want to clean
+    *******************************************************************************/
+    function cleanSlot(uint _slot) public onlyExtended() {
+        require(_slot != 0, "!slot");
+        slots[_slot] = address(0);
+        _rm.setApprovalForAll(slots[_slot], false);
+    }
+
+    /*******************************************************************************
     **  @notice Retrieve a specific equipement by it's slot
     **	@param _adventurer: tokenID of the adventurer we want to get the equipement
     **  @param _slot: ID of the slot we want to assign to
