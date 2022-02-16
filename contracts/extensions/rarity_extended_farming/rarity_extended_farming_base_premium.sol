@@ -40,7 +40,7 @@ contract rarity_extended_farming_base_premium is rarity_extended_farming_base {
     **	@param _toUpgradeLevel: level to upgrade to
     *******************************************************************************/
 	function _beforeUpgrade(uint _adventurer, uint _toUpgradeLevel) internal override {
-        uint256 priceToUpgrade = (_toUpgradeLevel ** 2) - _toUpgradeLevel + 5;
+        uint256 priceToUpgrade = (_toUpgradeLevel ** 2) - _toUpgradeLevel + BASE_UPGRADE_PRICE;
         require(msg.value == priceToUpgrade, "!price");
         payable(REWARD_ADDRESS).transfer(priceToUpgrade);
         _adventurer; //silence!
@@ -50,7 +50,7 @@ contract rarity_extended_farming_base_premium is rarity_extended_farming_base {
     **  @dev Retrieve the price for an upgrade
     **	@param _toUpgradeLevel: level to upgrade to
     *******************************************************************************/
-	function upgradePrice(uint _toUpgradeLevel) public pure returns (uint256) {
-        return (_toUpgradeLevel ** 2) - _toUpgradeLevel + 5;
+	function upgradePrice(uint _toUpgradeLevel) public view returns (uint256) {
+        return (_toUpgradeLevel ** 2) - _toUpgradeLevel + BASE_UPGRADE_PRICE;
 	}
 }
