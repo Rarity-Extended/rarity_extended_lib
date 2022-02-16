@@ -7,7 +7,7 @@ import "../../rarity.sol";
 import "../../interfaces/IRarity.sol";
 import "../../interfaces/IRarityFarmBase.sol";
 
-contract RarityExtendedFarmingCore is Extended, Rarity {
+contract rarity_extended_farming_core is Extended, Rarity {
 	string constant public NAME  = "Rarity Extended Farming Core";
 	uint constant public XP_PER_HARVEST = 250;
 
@@ -83,5 +83,14 @@ contract RarityExtendedFarmingCore is Extended, Rarity {
     function xpRequired(uint _currentLevel) public pure returns (uint) {
         return (_currentLevel * (_currentLevel + 1) / 2) * 1000;
     }
+
+	/*******************************************************************************
+	**  @dev For a specific adventurer and farm, return it's current status.
+	**	@param _currentLevel: current level to work with
+	**	@param _farmType: type of farm to work with
+	*******************************************************************************/
+	function adventurerStatus(uint _adventurer, uint _farmType) public view returns (uint, uint) {
+		return (level[_adventurer][_farmType], xp[_adventurer][_farmType]);
+	}
 }
 
