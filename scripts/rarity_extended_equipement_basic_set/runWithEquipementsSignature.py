@@ -132,7 +132,7 @@ def main():
 
 	ARMOR_HEAD.addRegistry(BASIC_SET, BASIC_SET, BASIC_SET_TYPE2_CODEX_ADDR)
 
-	signature = sign(BASIC_SET, user, ARMOR_HEAD.RARITY_EXTENDED_NCP(), adventurer, ARMOR_HEAD.RARITY_EXTENDED_NCP(), 1)
+	signature = sign(BASIC_SET, user, ARMOR_HEAD.RARITY_EXTENDED_NPC(), adventurer, ARMOR_HEAD.RARITY_EXTENDED_NPC(), 1)
 	ARMOR_HEAD.set_rEquipement(
 		adventurer,
 		adventurer,

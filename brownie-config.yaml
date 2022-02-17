@@ -13,10 +13,14 @@ compiler:
   solc:
     version: 0.8.10
     optimizer:
-      runs: 800
+      runs: 200
       details:
         yul: False
     remappings:
       - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.4.2"
+
+reports:
+    exclude_paths:
+      - "contracts/core/**/*"
 
 dev_deployment_artifacts: true
