@@ -50,7 +50,7 @@ contract rarity_extended_farming_core is Extended, Rarity {
 	**	The XP is shared for all the farm with the same typeOf.
 	**	@param _adventurer: adventurer to give some XP
 	*******************************************************************************/
-	function earnXp(uint _adventurer) external returns (uint) {
+	function earnXp(uint _adventurer) public returns (uint) {
 		Farm memory _farm = farm[msg.sender];
 		require(_farm.typeOf != 0, "!farm");
 		uint256 xpProgress = XP_PER_HARVEST - (XP_PER_HARVEST * (level[_adventurer][_farm.typeOf] - _farm.tier) * 20e8 / 100e8);
@@ -65,7 +65,7 @@ contract rarity_extended_farming_core is Extended, Rarity {
 	**	@param _farmType: type of farm to level-up the adventurer for
 	*******************************************************************************/
 	function levelup(uint _adventurer, uint _farmType) external returns (uint) {
-        require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
+		require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
 		uint currentLevel = level[_adventurer][_farmType];
 		uint currentXP = xp[_adventurer][_farmType];
 		uint requiredXP = xpRequired(currentLevel + 1);
@@ -80,9 +80,9 @@ contract rarity_extended_farming_core is Extended, Rarity {
 	**  @dev Compute the XP required for the next level for a given level
 	**	@param _currentLevel: current level to work with
 	*******************************************************************************/
-    function xpRequired(uint _currentLevel) public pure returns (uint) {
-        return (_currentLevel * (_currentLevel + 1) / 2) * 1000;
-    }
+	function xpRequired(uint _currentLevel) public pure returns (uint) {
+		return (_currentLevel * (_currentLevel + 1) / 2) * 1000;
+	}
 
 	/*******************************************************************************
 	**  @dev For a specific adventurer and farm, return it's current status.
