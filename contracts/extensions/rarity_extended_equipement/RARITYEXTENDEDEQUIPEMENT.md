@@ -10,15 +10,15 @@ Body parts are:
 - Primary Weapon
 - Secondary Weapon/shield
 
-To equip a specific part you need to call a specific contract for that part. That contract inherits from [rarity_extended_equipement_base.sol](contracts/rarity_extended_equipement/rarity_extended_equipement_base.sol) and handles specific situations for every part. 
+To equip a specific part you need to call a specific contract for that part. That contract inherits from [rarity_extended_equipement_base.sol](rarity_extended_equipement_base.sol) and handles specific situations for every part. 
 Example: you can't have 2 shields equiped.
-Parts metadata are not in this contract, every part points to a Codex where it holds everything you need to know about that part. An example is [Basic Set Codex](contracts/rarity_extended_equipement_basic_set/rarity_extended_basic_set_armor_codex.sol).
+Parts metadata are not in this contract, every part points to a Codex where it holds everything you need to know about that part. An example is [Basic Set Codex](contracts/extensions/rarity_extended_equipement_basic_set/rarity_extended_basic_set_armor_codex.sol).
 
-Also, you can use [rarity_extended_equipement_wrapper.sol](contracts/rarity_extended_equipement/rarity_extended_equipement_wrapper.sol) to get and set every part from a single contract. Like a proxy aggregator.
+Also, you can use [rarity_extended_equipement_wrapper.sol](rarity_extended_equipement_wrapper.sol) to get and set every part from a single contract. Like a proxy aggregator.
 
 You can equip ERC721 and rERC721 items in both.
 
-![Concept](contracts/rarity_extended_equipement/equipmentConcept.jpg)
+![Concept](equipmentConcept.jpg)
 
 ## Usage
 

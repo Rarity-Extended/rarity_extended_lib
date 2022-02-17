@@ -1,8 +1,7 @@
 ## RarityExtended Equipement Basic Set
 
 Basic sets is a group of pre-fabricated Equipments for use in Rarity. You can buy a set and mount it in your summoner. 
-Basic sets contracts extends [rERC721Enumerable](contracts/rERC721Enumerable.sol).
-
+Basic sets contracts extends [rERC721Enumerable](contracts/utils/rERC721Enumerable.sol).
 ## Usage
 
 To get the price of a set in FTM:
