@@ -6,7 +6,7 @@ import "../../extended.sol";
 import "../../interfaces/IrERC20.sol";
 import "../../interfaces/IRarityFarmingCore.sol";
 
-contract rarity_extended_farming_base is Extended, Rarity {
+contract rarity_extended_farming_base is Rarity {
 	uint constant DAY = 1 days; //Duration between two harvest
 	uint constant MAX_REWARD_PER_HARVEST = 3; //Base rewards is between 1 and MAX_REWARD_PER_HARVEST 
 	uint immutable public typeOf; //Type of farm. 1 for wood, 2 for minerals etc.
@@ -181,12 +181,5 @@ contract rarity_extended_farming_base is Extended, Rarity {
             result += 1;
         }
         return result;
-    }
-
-    /*******************************************************************************
-    **  @dev If the upgrade is payable with some ftm, get a way to retreive it
-    *******************************************************************************/
-    function sweepFtm() public onlyExtended {
-        payable(msg.sender).transfer(address(this).balance);
     }
 }
