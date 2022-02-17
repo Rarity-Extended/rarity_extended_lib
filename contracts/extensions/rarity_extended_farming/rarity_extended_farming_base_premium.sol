@@ -9,13 +9,15 @@ contract rarity_extended_farming_base_premium is rarity_extended_farming_base {
 
     /*******************************************************************************
     **  @dev Register the farming contract.
+    **	@param _rewardAddress: The address that collects upgrade fees for this farm
+    **	@param _upgradePrice: Base upgrade cost for this farm (in FTM)
+    **	@param _farmingCore: Core farming contract
+    **	@param _farmLoot: Loot item farmed by this contract
     **	@param _farmingType: Can be one of theses, but some more may be added
     **	- 1 for wood
     **	- 2 for minerals
-    **	@param _farmingCore: Core farming contract
-    **	@param _farmLoot: Loot item farmed by this contract
-    **	@param _name: Name of this contract
     **	@param _requiredLevel: Level required to access this farm
+    **	@param _name: Name of this contract
     **	@param _requiredItems: List of loot items required to unlock this farm
     **	@param _requiredItemsCount: Amount of loots required to unlock this farm
     *******************************************************************************/

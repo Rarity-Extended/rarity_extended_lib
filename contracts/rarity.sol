@@ -9,11 +9,11 @@ abstract contract Rarity {
     IRarity constant _rm = IRarity(0xce761D788DF608BD21bdd59d6f4B54b2e27F25Bb);
     IRandomCodex constant _random = IRandomCodex(0x7426dBE5207C2b5DaC57d8e55F0959fcD99661D4);
 
-	uint public RARITY_EXTENDED_NCP;
+	uint public RARITY_EXTENDED_NPC;
 
 	constructor(bool requireSummoner) {
 		if (requireSummoner) {
-        	RARITY_EXTENDED_NCP = IRarity(_rm).next_summoner();
+        	RARITY_EXTENDED_NPC = IRarity(_rm).next_summoner();
         	IRarity(_rm).summon(8);
 		}
 	}

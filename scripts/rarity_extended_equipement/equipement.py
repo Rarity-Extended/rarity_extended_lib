@@ -392,7 +392,7 @@ def checkPrimaryWeaponRarity():
 	# Should be successful with a any weapon
 	# Should be able to set and unset equipement
 	###############################################################################################
-	PRIMARY_WEAPONS_MANAGER = PRIMARY_WEAPONS.RARITY_EXTENDED_NCP()
+	PRIMARY_WEAPONS_MANAGER = PRIMARY_WEAPONS.RARITY_EXTENDED_NPC()
 	THE_FOREST.approve(DEVELOPER[1], PRIMARY_WEAPONS_MANAGER, OWNER_OF_THE_FOREST_WEAPON[2], {'from': DEVELOPER[0]})
 	RARITY_MANIFEST.setApprovalForAll(PRIMARY_WEAPONS, True, {'from': DEVELOPER[0]}) # Bug with the forest, need approval for all
 

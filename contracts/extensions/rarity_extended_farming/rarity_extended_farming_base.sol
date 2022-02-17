@@ -20,7 +20,7 @@ contract rarity_extended_farming_base is Extended, Rarity {
     bool immutable defaultUnlocked; //Is this contract unlocked by default for any adventurer
 	mapping(uint => bool) public isUnlocked; //Is this contract unlocked for adventurer uint
 	mapping(uint => uint) public nextHarvest; //Next harvest for adventurer
-	mapping(uint => uint) public upgradeLevel; //What is the upgrad level for this farm. Premium override.
+	mapping(uint => uint) public upgradeLevel; //What is the upgrade level for this farm. Premium override.
 
     event Harvested(uint _adventurer, uint _amount);
     event Unlocked(uint _adventurer);
@@ -86,8 +86,9 @@ contract rarity_extended_farming_base is Extended, Rarity {
 		uint adventurerLevel = farmingCore.level(_adventurer, typeOf);
 		uint farmLootAmount = _get_random(_adventurer, MAX_REWARD_PER_HARVEST, false);
         uint extraFarmLootAmount = _get_random(_adventurer, adventurerLevel, true);
-		farmLoot.mint(_adventurer, extraFarmLootAmount + (farmLootAmount * (upgradeLevel[_adventurer] + 1)));
-		return extraFarmLootAmount + (farmLootAmount * (upgradeLevel[_adventurer] + 1));
+        uint totalFarmLoot = extraFarmLootAmount + (farmLootAmount * (upgradeLevel[_adventurer] + 1));
+		farmLoot.mint(_adventurer, totalFarmLoot);
+		return totalFarmLoot;
 	}
 
 	/*******************************************************************************
@@ -125,9 +126,9 @@ contract rarity_extended_farming_base is Extended, Rarity {
 		require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
 		for (uint256 i = 0; i < requiredItems.length; i++) {
 			IrERC20(requiredItems[i]).transferFrom(
-				RARITY_EXTENDED_NCP,
+				RARITY_EXTENDED_NPC,
 				_adventurer,
-				RARITY_EXTENDED_NCP,
+				RARITY_EXTENDED_NPC,
 				requiredItemsCount[i]
 			);
 		}
@@ -183,7 +184,7 @@ contract rarity_extended_farming_base is Extended, Rarity {
     }
 
     /*******************************************************************************
-    **  @dev Is the upgrade is payable with some ftm, get a way to retreive it
+    **  @dev If the upgrade is payable with some ftm, get a way to retreive it
     *******************************************************************************/
     function sweepFtm() public onlyExtended {
         payable(msg.sender).transfer(address(this).balance);

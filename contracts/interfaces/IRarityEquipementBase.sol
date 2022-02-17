@@ -18,5 +18,5 @@ interface IEquipementBase {
         address _registry,
         uint256 _tokenID
     ) external;
-    function RARITY_EXTENDED_NCP() external view returns (uint);
+    function RARITY_EXTENDED_NPC() external view returns (uint);
 }

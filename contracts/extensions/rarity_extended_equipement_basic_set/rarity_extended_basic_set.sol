@@ -40,8 +40,8 @@ contract rarity_extended_basic_set is Extended, rERC721Enumerable {
             if (set[index] == 0) {
                 continue;
             }
-            uint8 itemType = (index == 4 || (index == 5 && set[index] == 19)) ? WEAPON_TYPE : ARMOR_TYPE;
-            items[next_item] = item(itemType, set[index], timestamp, _receiver, next_item);
+            uint8 base_type = (index == 4 || (index == 5 && set[index] == 19)) ? WEAPON_TYPE : ARMOR_TYPE;
+            items[next_item] = item(base_type, set[index], timestamp, _receiver, next_item);
             _safeMint(_receiver, next_item++);
             
         }

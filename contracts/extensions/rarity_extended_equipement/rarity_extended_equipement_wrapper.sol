@@ -115,19 +115,19 @@ contract rarity_extended_equipement_wrapper is ERC721Holder, Extended, Rarity {
         require(_isApprovedOrOwnerOfItem(_tokenID, minter, _operator), "!equipement");
 
         minter.transferFrom(
-            /* operator = */ RARITY_EXTENDED_NCP,
+            /* operator = */ RARITY_EXTENDED_NPC,
             /* from = */ _adventurer,
-            /* to = */ RARITY_EXTENDED_NCP,
+            /* to = */ RARITY_EXTENDED_NPC,
             /* id = */ _tokenID
         );
         minter.approve(
-            /* from = */ RARITY_EXTENDED_NCP,
-            /* to = */ equipementSlot.RARITY_EXTENDED_NCP(),
+            /* from = */ RARITY_EXTENDED_NPC,
+            /* to = */ equipementSlot.RARITY_EXTENDED_NPC(),
             /* id = */ _tokenID
         );
         equipementSlot.set_rEquipement(
             /* adventurer = */ _adventurer,
-            /* operator = */ RARITY_EXTENDED_NCP,
+            /* operator = */ RARITY_EXTENDED_NPC,
             /* minter = */ _registry,
             /* id = */ _tokenID
         );

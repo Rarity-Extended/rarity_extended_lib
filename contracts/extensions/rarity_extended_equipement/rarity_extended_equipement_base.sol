@@ -116,9 +116,9 @@ abstract contract rarity_extended_equipement_base is ERC721Holder, Extended, Rar
         _handle_specific_situations(_adventurer, codex, item_type);
 
         IrERC721(minter).transferFrom(
-            /* operator = */ RARITY_EXTENDED_NCP,
+            /* operator = */ RARITY_EXTENDED_NPC,
             /* from = */ owner,
-            /* to = */ RARITY_EXTENDED_NCP,
+            /* to = */ RARITY_EXTENDED_NPC,
             /* id = */ _tokenID
         );
         equipement[_adventurer] = Equipement(_tokenID, minter, true);
@@ -138,7 +138,7 @@ abstract contract rarity_extended_equipement_base is ERC721Holder, Extended, Rar
         require(minter != address(0), "!minter");
         uint owner = IrERC721(minter).ownerOf(_tokenID);
 
-        IrERC721(minter).permit(RARITY_EXTENDED_NCP, owner, RARITY_EXTENDED_NCP, _tokenID, deadline, signature);
+        IrERC721(minter).permit(RARITY_EXTENDED_NPC, owner, RARITY_EXTENDED_NPC, _tokenID, deadline, signature);
 
         (uint8 base_type, uint8 item_type,,) = IEquipementSource(_registry).items(_tokenID);
         require(_isApprovedOrOwner(owner, msg.sender), "!owner");
@@ -149,9 +149,9 @@ abstract contract rarity_extended_equipement_base is ERC721Holder, Extended, Rar
         _handle_specific_situations(_adventurer, codex, item_type);
 
         IrERC721(minter).transferFrom(
-            /* operator = */ RARITY_EXTENDED_NCP,
+            /* operator = */ RARITY_EXTENDED_NPC,
             /* from = */ owner,
-            /* to = */ RARITY_EXTENDED_NCP,
+            /* to = */ RARITY_EXTENDED_NPC,
             /* id = */ _tokenID
         );
         equipement[_adventurer] = Equipement(_tokenID, minter, true);
@@ -186,8 +186,8 @@ abstract contract rarity_extended_equipement_base is ERC721Holder, Extended, Rar
 
         if (equipementInfo.fromAdventurer) {
             IrERC721(equipementInfo.registry).transferFrom(
-                RARITY_EXTENDED_NCP,
-                RARITY_EXTENDED_NCP,
+                RARITY_EXTENDED_NPC,
+                RARITY_EXTENDED_NPC,
                 _adventurer,
                 equipementInfo.tokenID
             );
