@@ -86,8 +86,9 @@ contract rarity_extended_farming_base is Extended, Rarity {
 		uint adventurerLevel = farmingCore.level(_adventurer, typeOf);
 		uint farmLootAmount = _get_random(_adventurer, MAX_REWARD_PER_HARVEST, false);
         uint extraFarmLootAmount = _get_random(_adventurer, adventurerLevel, true);
-		farmLoot.mint(_adventurer, extraFarmLootAmount + (farmLootAmount * (upgradeLevel[_adventurer] + 1)));
-		return extraFarmLootAmount + (farmLootAmount * (upgradeLevel[_adventurer] + 1));
+        uint totalFarmLoot = extraFarmLootAmount + (farmLootAmount * (upgradeLevel[_adventurer] + 1));
+		farmLoot.mint(_adventurer, totalFarmLoot);
+		return totalFarmLoot;
 	}
 
 	/*******************************************************************************
