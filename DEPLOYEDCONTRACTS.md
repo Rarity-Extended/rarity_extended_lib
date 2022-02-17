@@ -4,7 +4,6 @@
 - [Rarity Extended Care - 0xc066618F5c84D2eB002b99b020364D4CDDE6245D](https://ftmscan.com/address/0xc066618F5c84D2eB002b99b020364D4CDDE6245D)
 - [Rarity Extended XP - 0x640bdeff13ae5527424acd868F65357270b05eB8](https://ftmscan.com/address/0x640bdeff13ae5527424acd868F65357270b05eB8)
 - [Rarity Extended Skins Helper - 0xbe570c81e8bc6a4ca2675fe619044b389df32566](https://ftmscan.com/address/0xbe570c81e8bc6a4ca2675fe619044b389df32566)
-- [Rarity Extended Proxy Deployer - 0x253aaEAFDA7AE3C6Ed3E3E2732C49cf077a22Ae0](https://ftmscan.com/address/0x253aaEAFDA7AE3C6Ed3E3E2732C49cf077a22Ae0)
 - [Rarity Extended Cooking - 0x7474002fe5640d612c9a76cb0b6857932ff891e8](https://ftmscan.com/address/0x7474002fe5640d612c9a76cb0b6857932ff891e8)
 - [Rarity Extended Cooking Helper - 0xFE23ea8C57Ee4f28E9C60cA09C512Ce80e90E6F5](https://ftmscan.com/address/0xFE23ea8C57Ee4f28E9C60cA09C512Ce80e90E6F5)
 
