@@ -20,7 +20,7 @@ contract rarity_extended_farming_base is Extended, Rarity {
     bool immutable defaultUnlocked; //Is this contract unlocked by default for any adventurer
 	mapping(uint => bool) public isUnlocked; //Is this contract unlocked for adventurer uint
 	mapping(uint => uint) public nextHarvest; //Next harvest for adventurer
-	mapping(uint => uint) public upgradeLevel; //What is the upgrad level for this farm. Premium override.
+	mapping(uint => uint) public upgradeLevel; //What is the upgrade level for this farm. Premium override.
 
     event Harvested(uint _adventurer, uint _amount);
     event Unlocked(uint _adventurer);
@@ -125,9 +125,9 @@ contract rarity_extended_farming_base is Extended, Rarity {
 		require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
 		for (uint256 i = 0; i < requiredItems.length; i++) {
 			IrERC20(requiredItems[i]).transferFrom(
-				RARITY_EXTENDED_NCP,
+				RARITY_EXTENDED_NPC,
 				_adventurer,
-				RARITY_EXTENDED_NCP,
+				RARITY_EXTENDED_NPC,
 				requiredItemsCount[i]
 			);
 		}
