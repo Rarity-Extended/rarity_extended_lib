@@ -9,11 +9,19 @@ Farms have tiers, every tier needs a serie of requirements:
 - tier xp.
 - previuos level materials.
 
+You can farm in multiple farms at the same time. But `harvest` triggers a cooldown, and this disable you to harvest again during specific amount of time in the same farm.
+
+![Concept](farmingTiersConcept.jpg)
+
 **rarity_extended_farming_core** is the contract that manage all required data to farm.
 **rarity_extended_farming_base** is the contract that farms inherit. Holds basic behaviors for using everything.
 **rarity_extended_farming_base_premium** is a contract to implement aditional payable features. Ideal to fund the team behind development. Example: implement a paid upgrade functions.
 
 ![Concept](farmingConcept.png)
+
+To understand how XP works, Major did a cool drawing:
+
+![Concept](farmingXPConcept.jpg)
 
 ## Usage
 
