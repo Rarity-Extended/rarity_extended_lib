@@ -2,7 +2,6 @@
 pragma solidity ^0.8.9;
 
 import "../../rarity.sol";
-import "../../extended.sol";
 import "../../interfaces/IrERC20.sol";
 import "../../interfaces/IRarityFarmingCore.sol";
 
