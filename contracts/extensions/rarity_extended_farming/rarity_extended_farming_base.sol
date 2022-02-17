@@ -184,7 +184,7 @@ contract rarity_extended_farming_base is Extended, Rarity {
     }
 
     /*******************************************************************************
-    **  @dev Is the upgrade is payable with some ftm, get a way to retreive it
+    **  @dev If the upgrade is payable with some ftm, get a way to retreive it
     *******************************************************************************/
     function sweepFtm() public onlyExtended {
         payable(msg.sender).transfer(address(this).balance);
