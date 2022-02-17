@@ -37,3 +37,5 @@ For example, if you want to perform the daily adventure + the daily cellar for a
 ```js
 care_of([12345, 23456, 65432], [true, true, false, false], 1)
 ```
+
+**[Deployed here](https://ftmscan.com/address/0xc066618F5c84D2eB002b99b020364D4CDDE6245D)**

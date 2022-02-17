@@ -1,4 +1,5 @@
 ## RarityExtended Name
+
 Rarity Extended Name is a smartContract that will be used with RarityExtended to provide some personalization on the aventurers, allowing the players to set names for their characters, including :
 - **The Firstname** aka `John` for example
 - **The Lastname** aka `Doe` for example

@@ -25,8 +25,9 @@ RarityExtended/
 └── core/                                   # Core contracts of Rarity Manifested (Work by Andre Cronje)
 ```
 
-* [Deployed contracts](DEPLOYEDCONTRACTS.md)
+## Docs
 
+* [Deployed contracts](DEPLOYEDCONTRACTS.md)
 * [Rarity Extended Care](contracts/rarity_extended_care/RARITYEXTENDEDCARE.md)
 * [Rarity Extended Name](contracts/rarity_extended_name/RARITYEXTENDEDNAME.md)
 * [Rarity Extended XP](contracts/rarity_extended_xp/RARITYEXTENDEDXP.md)

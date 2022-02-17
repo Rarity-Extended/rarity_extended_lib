@@ -20,3 +20,14 @@ Note that uint(0) is equivalent to address(0), so holder of the first NFT is bur
 Variant of the onlyOwner contract. Used to restrict access of some functions.
 
 ------
+
+## RarityExtended Loot
+Loot items used in [boars adventure](https://github.com/Rarity-Extended/rarity_extended_boars), and other contracts. Extends rERC20.
+
+------
+
+## RarityExtended Rarity
+Abstract contract with basic utilities ready to be implemented in a new contract. Includes a summoner to manage and lock assets in the contract.
+Also random codex and rERC standards.
+
+------
