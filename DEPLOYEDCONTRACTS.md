@@ -61,3 +61,8 @@
 - [Rarity Equipement Weapon Primary Addr - 0x1A04fF6Db46dB1be64c3bC53f1481e197B5C82Af](https://ftmscan.com/address/0x1A04fF6Db46dB1be64c3bC53f1481e197B5C82Af)
 - [Rarity Equipement Weapon Secondary Addr - 0x150c6F9A391cA9076F5f9Cf5e1D8A41c80540679](https://ftmscan.com/address/0x150c6F9A391cA9076F5f9Cf5e1D8A41c80540679)
 - [Rarity Equipement Weapon Shield - 0x1a8B00725126e26638b88833Abfb08f6AdBa63f5](https://ftmscan.com/address/0x1a8B00725126e26638b88833Abfb08f6AdBa63f5)
+
+### BasicSet
+- [Rarity Extended Equipment Basic Set Addr - 0xED2C807C13cfB9954de0542BccdaA574801709b4](https://ftmscan.com/address/0xED2C807C13cfB9954de0542BccdaA574801709b4)
+- [Rarity Extended Equipment Basic Set Armor Codex Addr - 0x6bAd1681a0b09026FFB0D2AA95b50c598052e571](https://ftmscan.com/address/0x6bAd1681a0b09026FFB0D2AA95b50c598052e571)
+- [Rarity Extended Equipment Basic Set Weapon Codex Addr - 0xE749643b18E58Ce1eF9cE603018C880Ec1a68C63](https://ftmscan.com/address/0xE749643b18E58Ce1eF9cE603018C880Ec1a68C63)

@@ -45,4 +45,4 @@ To get the price of a set in FTM:
 function basicSetPrice() external view returns (uint);
 ```
 
-**[Deployed here]()**
+**[Deployed here](../../../DEPLOYEDCONTRACTS.md#BasicSet)**
