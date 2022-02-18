@@ -67,6 +67,7 @@ contract rarity_extended_farming_base is Rarity {
     function harvest(uint _adventurer) public {
         require(_isApprovedOrOwner(_adventurer, msg.sender), "!owner");
         require(block.timestamp > nextHarvest[_adventurer], "!nextHarvest");
+        require(_rm.level(_adventurer) >= requiredLevel + 1, "!adventurer_level");
         require(farmingCore.level(_adventurer, typeOf) >= requiredLevel, "!level");
 		require(isUnlocked[_adventurer] || defaultUnlocked, "!unlocked");
         nextHarvest[_adventurer] = block.timestamp + DAY;

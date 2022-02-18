@@ -4,7 +4,8 @@ pragma solidity 0.8.10;
 import "../../utils/rERC721Enumerable.sol";
 import "../../extended.sol";
 
-contract rarity_extended_basic_set is Extended, rERC721Enumerable {
+contract rarity_extended_basic_set is rERC721Enumerable {
+    address immutable REWARD_ADDRESS;
     string constant public name = "Rarity Extended Basic Sets";
     uint8 constant ARMOR_TYPE = 2;
     uint8 constant WEAPON_TYPE = 3;
@@ -20,7 +21,8 @@ contract rarity_extended_basic_set is Extended, rERC721Enumerable {
         uint tokenID;
     }
 
-    constructor(address _rm, uint _basicSetPrice) rERC721(_rm, "Basic Set") {
+    constructor(address _rm, address _rewardAddress, uint _basicSetPrice) rERC721(_rm, "Basic Set") {
+        REWARD_ADDRESS = _rewardAddress;
         basicSetPrice = _basicSetPrice;
     }
 
@@ -33,6 +35,7 @@ contract rarity_extended_basic_set is Extended, rERC721Enumerable {
     function buySet(uint _id, uint _receiver) public payable {
         require(msg.value == basicSetPrice, "!basicSetPrice");
         require(_id > 0 && _id < 12, "!id");
+        payable(REWARD_ADDRESS).transfer(basicSetPrice);
 
         uint32 timestamp = uint32(block.timestamp);
         uint8[6] memory set = set_by_id(_id);
@@ -45,13 +48,6 @@ contract rarity_extended_basic_set is Extended, rERC721Enumerable {
             _safeMint(_receiver, next_item++);
             
         }
-    }
-
-    /*******************************************************************************
-    **  @notice: used for admin to extract money earned from sets sales
-	*******************************************************************************/
-    function getMoney() public onlyExtended {
-        payable(msg.sender).transfer(address(this).balance);
     }
 
     /*******************************************************************************
@@ -77,12 +73,12 @@ contract rarity_extended_basic_set is Extended, rERC721Enumerable {
     **  -> Head | Body | Hand | Foot | Primary Weapon | Secondary Weapon/shield
 	*******************************************************************************/
     function set_by_id(uint _id) public pure returns(uint8[6] memory) {
-        if (_id == 1) return ([0, 4, 9, 13, 4, 0]);
+        if (_id == 1) return ([15, 4, 9, 13, 4, 0]);
         if (_id == 2) return ([17, 1, 7, 12, 1, 0]);
         if (_id == 3) return ([15, 5, 10, 13, 3, 19]);
         if (_id == 4) return ([15, 4, 9, 13, 2, 19]);
         if (_id == 5) return ([18, 6, 11, 14, 5, 19]);
-        if (_id == 6) return ([0, 1, 8, 12, 8, 0]);
+        if (_id == 6) return ([15, 1, 8, 12, 8, 0]);
         if (_id == 7) return ([18, 6, 11, 14, 6, 19]);
         if (_id == 8) return ([15, 3, 7, 12, 7, 0]);
         if (_id == 9) return ([15, 3, 7, 12, 1, 1]);

@@ -115,21 +115,21 @@ contract rarity_extended_equipement_wrapper is ERC721Holder, Extended, Rarity {
         require(_isApprovedOrOwnerOfItem(_tokenID, minter, _operator), "!equipement");
 
         minter.transferFrom(
-            /* operator = */ RARITY_EXTENDED_NPC,
-            /* from = */ _adventurer,
-            /* to = */ RARITY_EXTENDED_NPC,
-            /* id = */ _tokenID
+            RARITY_EXTENDED_NPC,
+            _adventurer,
+            RARITY_EXTENDED_NPC,
+            _tokenID
         );
         minter.approve(
-            /* from = */ RARITY_EXTENDED_NPC,
-            /* to = */ equipementSlot.RARITY_EXTENDED_NPC(),
-            /* id = */ _tokenID
+            RARITY_EXTENDED_NPC,
+            equipementSlot.RARITY_EXTENDED_NPC(),
+            _tokenID
         );
         equipementSlot.set_rEquipement(
-            /* adventurer = */ _adventurer,
-            /* operator = */ RARITY_EXTENDED_NPC,
-            /* minter = */ _registry,
-            /* id = */ _tokenID
+            _adventurer,
+            RARITY_EXTENDED_NPC,
+            _registry,
+            _tokenID
         );
     }
 
@@ -160,19 +160,19 @@ contract rarity_extended_equipement_wrapper is ERC721Holder, Extended, Rarity {
         require(_isApprovedOrOwnerOfItem(_tokenID, IERC721(_registry), msg.sender), "!equipement"); 
 
         minter.safeTransferFrom(
-            /* owner = */ _operator,
-            /* to = */ address(this),
-            /* id = */ _tokenID
+            _operator,
+            address(this),
+            _tokenID
         );
         minter.approve(
-            /* to = */ address(equipementSlot),
-            /* id = */ _tokenID
+            address(equipementSlot),
+            _tokenID
         );
         equipementSlot.set_equipement(
-            /* adventurer = */ _adventurer,
-            /* operator = */ address(this),
-            /* minter = */ _registry,
-            /* id = */ _tokenID
+            _adventurer,
+            address(this),
+            _registry,
+            _tokenID
         );
     }
 }
