@@ -1,0 +1,68 @@
+## Deployed contracts
+
+### Helpers and facilitators
+- [Rarity Extended Name - 0x4762AF980240eFEBbc2D6E46C408A720C20D0e10](https://ftmscan.com/address/0x4762AF980240eFEBbc2D6E46C408A720C20D0e10)
+- [Rarity Extended Care - 0xc066618F5c84D2eB002b99b020364D4CDDE6245D](https://ftmscan.com/address/0xc066618F5c84D2eB002b99b020364D4CDDE6245D)
+- [Rarity Extended XP - 0x640bdeff13ae5527424acd868F65357270b05eB8](https://ftmscan.com/address/0x640bdeff13ae5527424acd868F65357270b05eB8)
+- [Rarity Extended Skins Helper - 0xbe570c81e8bc6a4ca2675fe619044b389df32566](https://ftmscan.com/address/0xbe570c81e8bc6a4ca2675fe619044b389df32566)
+- [Rarity Extended Cooking - 0x7474002fe5640d612c9a76cb0b6857932ff891e8](https://ftmscan.com/address/0x7474002fe5640d612c9a76cb0b6857932ff891e8)
+- [Rarity Extended Cooking Helper - 0xFE23ea8C57Ee4f28E9C60cA09C512Ce80e90E6F5](https://ftmscan.com/address/0xFE23ea8C57Ee4f28E9C60cA09C512Ce80e90E6F5)
+
+### Loots
+- [Rarity Extended rERC20 - Mushroom - 0xcd80cE7E28fC9288e20b806ca53683a439041738](https://ftmscan.com/address/0xcd80cE7E28fC9288e20b806ca53683a439041738)
+- [Rarity Extended rERC20 - Berries - 0x9d6C92CCa7d8936ade0976282B82F921F7C50696](https://ftmscan.com/address/0x9d6C92CCa7d8936ade0976282B82F921F7C50696)
+- [Rarity Extended rERC20 - Wood - 0xdcE321D1335eAcc510be61c00a46E6CF05d6fAA1](https://ftmscan.com/address/0xdcE321D1335eAcc510be61c00a46E6CF05d6fAA1)
+- [Rarity Extended rERC20 - Leather - 0xc5E80Eef433AF03E9380123C75231A08dC18C4B6](https://ftmscan.com/address/0xc5E80Eef433AF03E9380123C75231A08dC18C4B6)
+- [Rarity Extended rERC20 - Meat - 0x95174B2c7E08986eE44D65252E3323A782429809](https://ftmscan.com/address/0x95174B2c7E08986eE44D65252E3323A782429809)
+- [Rarity Extended rERC20 - Tusks - 0x60bFaCc2F96f3EE847cA7D8cC713Ee40114be667](https://ftmscan.com/address/0x60bFaCc2F96f3EE847cA7D8cC713Ee40114be667)
+- [Rarity Extended rERC20 - Candies - 0x18733f3C91478B122bd0880f41411efd9988D97E](https://ftmscan.com/address/0x18733f3C91478B122bd0880f41411efd9988D97E)
+
+### Meals
+- [Rarity Extended rERC721 - Meal Grilled Meat - 0x97e8f1061224cb532f808b074786c76e977ba6ee](https://ftmscan.com/address/0x97e8f1061224cb532f808b074786c76e977ba6ee)
+- [Rarity Extended rERC721 - Meal Mushroom soup - 0x2e3e1c1f49a288ebf88be66a3ed3539b5971f25d](https://ftmscan.com/address/0x2e3e1c1f49a288ebf88be66a3ed3539b5971f25d)
+- [Rarity Extended rERC721 - Meal Berries pie - 0x57e4cd55289da26aa7cb607c00c5ddcd0f7980a2](https://ftmscan.com/address/0x57e4cd55289da26aa7cb607c00c5ddcd0f7980a2)
+- [Rarity Extended rERC721 - Meal Mushroom and Meat Skewer - 0x65567a2fbc14b4abcd414bb6902384745d4353f6](https://ftmscan.com/address/0x65567a2fbc14b4abcd414bb6902384745d4353f6)
+- [Rarity Extended rERC721 - Meal Mushroom and Berries Mix - 0xf06ffe67cb96641eec55ea19126bd8f0107ff0ad](https://ftmscan.com/address/0xf06ffe67cb96641eec55ea19126bd8f0107ff0ad)
+- [Rarity Extended rERC721 - Meal Berries Wine - 0xa0e9159efc4407c4465bbcdf0e7538d6869d81a3](https://ftmscan.com/address/0xa0e9159efc4407c4465bbcdf0e7538d6869d81a3)
+
+### Farm
+- [Rarity Extended Farm Core - 0x5A6bc1Ca56509d197e9504E0afa04c6FE901889e](https://ftmscan.com/address/0x5A6bc1Ca56509d197e9504E0afa04c6FE901889e)
+- [Rarity Extended Wood Loot 0 - 0xdcE321D1335eAcc510be61c00a46E6CF05d6fAA1](https://ftmscan.com/address/0xdcE321D1335eAcc510be61c00a46E6CF05d6fAA1)
+- [Rarity Extended Wood Loot 1 - 0x4C072F43f357C46ebcD46399aF37Bf2bABBf071D](https://ftmscan.com/address/0x4C072F43f357C46ebcD46399aF37Bf2bABBf071D)
+- [Rarity Extended Wood Loot 2 - 0xB7fF73848Fe0FecFa99Da1D8b86E332bbE0CD2a7](https://ftmscan.com/address/0xB7fF73848Fe0FecFa99Da1D8b86E332bbE0CD2a7)
+- [Rarity Extended Wood Loot 3 - 0x3161F72B69f658F237E0149640Ac3B4123A4763a](https://ftmscan.com/address/0x3161F72B69f658F237E0149640Ac3B4123A4763a)
+- [Rarity Extended Wood Loot 4 - 0x18ec83a3e4cAF8D2c92c5A004b6Ecb526d57eF95](https://ftmscan.com/address/0x18ec83a3e4cAF8D2c92c5A004b6Ecb526d57eF95)
+- [Rarity Extended Wood Loot 5 - 0x5F77c4C33762fc1a6Ba5C3256145c6402fb909Ac](https://ftmscan.com/address/0x5F77c4C33762fc1a6Ba5C3256145c6402fb909Ac)
+- [Rarity Extended Wood Farm 0 - 0x10C54867d3513F1326e142a0b1763521FD1cF165](https://ftmscan.com/address/0x10C54867d3513F1326e142a0b1763521FD1cF165)
+- [Rarity Extended Wood Farm 1 - 0x4fda0067d6111a1D48c9a8BAA933D9e6e0AdC8fD](https://ftmscan.com/address/0x4fda0067d6111a1D48c9a8BAA933D9e6e0AdC8fD)
+- [Rarity Extended Wood Farm 2 - 0x6113ca060c6510A3bA82A00A51fE7d0eF194a155](https://ftmscan.com/address/0x6113ca060c6510A3bA82A00A51fE7d0eF194a155)
+- [Rarity Extended Wood Farm 3 - 0xC1B4C7fd86b8Eeb0dfE94C6b96F5E5F52A5B02a5](https://ftmscan.com/address/0xC1B4C7fd86b8Eeb0dfE94C6b96F5E5F52A5B02a5)
+- [Rarity Extended Wood Farm 4 - 0x0D27CE28e4D3eF2FcCcf25695800E314726cEB38](https://ftmscan.com/address/0x0D27CE28e4D3eF2FcCcf25695800E314726cEB38)
+- [Rarity Extended Wood Farm 5 - 0xB0986557254055aeC98a2c3d6905C351E0BF61bD](https://ftmscan.com/address/0xB0986557254055aeC98a2c3d6905C351E0BF61bD)
+- [Rarity Extended Ore Loot 0 - 0xb57AcD7de31a8a37b7d4f3EC213756c8D84463d6](https://ftmscan.com/address/0xb57AcD7de31a8a37b7d4f3EC213756c8D84463d6)
+- [Rarity Extended Ore Loot 1 - 0x9ce255d48e6A4D2e6751E64b4DaE1265D75ad1Be](https://ftmscan.com/address/0x9ce255d48e6A4D2e6751E64b4DaE1265D75ad1Be)
+- [Rarity Extended Ore Loot 2 - 0x8e9c5E5a3223C385f94217c68bd8281b0Bb6f64e](https://ftmscan.com/address/0x8e9c5E5a3223C385f94217c68bd8281b0Bb6f64e)
+- [Rarity Extended Ore Loot 3 - 0x53D9dbb097EB8A2afd37699275eE558e8b7D9298](https://ftmscan.com/address/0x53D9dbb097EB8A2afd37699275eE558e8b7D9298)
+- [Rarity Extended Ore Loot 4 - 0xC1294E23580c36Fef235122382713d904ca7101e](https://ftmscan.com/address/0xC1294E23580c36Fef235122382713d904ca7101e)
+- [Rarity Extended Ore Loot 5 - 0xe9136a421a110B67302AD02a6273CCF5581AA3dD](https://ftmscan.com/address/0xe9136a421a110B67302AD02a6273CCF5581AA3dD)
+- [Rarity Extended Ore Farm 0 - 0xc3183Ce677bee93aca0d0769Fd7e8563F227d3E4](https://ftmscan.com/address/0xc3183Ce677bee93aca0d0769Fd7e8563F227d3E4)
+- [Rarity Extended Ore Farm 1 - 0x5bA9dbEb1aBFD9162Fb58306420d17346a015612](https://ftmscan.com/address/0x5bA9dbEb1aBFD9162Fb58306420d17346a015612)
+- [Rarity Extended Ore Farm 2 - 0xBC20CB09B54405B5A4c45260Ea5C316B52813Ae5](https://ftmscan.com/address/0xBC20CB09B54405B5A4c45260Ea5C316B52813Ae5)
+- [Rarity Extended Ore Farm 3 - 0xCCdf8e2FA5bC72Cbf65893F54eb1fF6DfEe35e10](https://ftmscan.com/address/0xCCdf8e2FA5bC72Cbf65893F54eb1fF6DfEe35e10)
+- [Rarity Extended Ore Farm 4 - 0x883833940046BeBDC5De7f5cC184d0Ae47E2FBaB](https://ftmscan.com/address/0x883833940046BeBDC5De7f5cC184d0Ae47E2FBaB)
+- [Rarity Extended Ore Farm 5 - 0xd7C62A4075449Dd8F855a8CC1F6f56EC1624A62e](https://ftmscan.com/address/0xd7C62A4075449Dd8F855a8CC1F6f56EC1624A62e)
+
+### Equipement
+- [Rarity Equipement Wrapper Addr - 0xb79c4626cf561d176417FC4F142aEc86b63b8EF0](https://ftmscan.com/address/0xb79c4626cf561d176417FC4F142aEc86b63b8EF0)
+- [Rarity Equipement Armor Head Addr - 0x494d46681f26DEEB93ba791aca975A77ac9CF917](https://ftmscan.com/address/0x494d46681f26DEEB93ba791aca975A77ac9CF917)
+- [Rarity Equipement Armor Body Addr - 0xCCcD46478F384b1E49E3282a14e4431C7dD0D9c4](https://ftmscan.com/address/0xCCcD46478F384b1E49E3282a14e4431C7dD0D9c4)
+- [Rarity Equipement Armor Hand Addr - 0x7b562412Ba62141c6497eA6256c100b19F56a687](https://ftmscan.com/address/0x7b562412Ba62141c6497eA6256c100b19F56a687)
+- [Rarity Equipement Armor Foot Addr - 0x9578f6bB11B7f0E02ad9855d8F7A1B2972B8B881](https://ftmscan.com/address/0x9578f6bB11B7f0E02ad9855d8F7A1B2972B8B881)
+- [Rarity Equipement Weapon Primary Addr - 0x1A04fF6Db46dB1be64c3bC53f1481e197B5C82Af](https://ftmscan.com/address/0x1A04fF6Db46dB1be64c3bC53f1481e197B5C82Af)
+- [Rarity Equipement Weapon Secondary Addr - 0x150c6F9A391cA9076F5f9Cf5e1D8A41c80540679](https://ftmscan.com/address/0x150c6F9A391cA9076F5f9Cf5e1D8A41c80540679)
+- [Rarity Equipement Weapon Shield - 0x1a8B00725126e26638b88833Abfb08f6AdBa63f5](https://ftmscan.com/address/0x1a8B00725126e26638b88833Abfb08f6AdBa63f5)
+
+### BasicSet
+- [Rarity Extended Equipment Basic Set Addr - 0xED2C807C13cfB9954de0542BccdaA574801709b4](https://ftmscan.com/address/0xED2C807C13cfB9954de0542BccdaA574801709b4)
+- [Rarity Extended Equipment Basic Set Armor Codex Addr - 0x6bAd1681a0b09026FFB0D2AA95b50c598052e571](https://ftmscan.com/address/0x6bAd1681a0b09026FFB0D2AA95b50c598052e571)
+- [Rarity Extended Equipment Basic Set Weapon Codex Addr - 0xE749643b18E58Ce1eF9cE603018C880Ec1a68C63](https://ftmscan.com/address/0xE749643b18E58Ce1eF9cE603018C880Ec1a68C63)
