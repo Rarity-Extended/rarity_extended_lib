@@ -34,6 +34,7 @@ RARITY_CRAFTING = Contract.from_explorer(RARITY_CRAFTING_ADDR);
 THE_FOREST = Contract.from_explorer(THE_FOREST_ADDR);
 RARITY_MANIFEST = Contract.from_explorer(RARITY_MANIFEST_ADDR);
 WRAPPER = deployer.deploy(rarity_extended_equipement_wrapper)
+
 # Deploying the initial set of equipements
 ARMOR_HEAD = deployer.deploy(rarity_extended_equipement_armor_head, 2, 1, WRAPPER)
 ARMOR_BODY = deployer.deploy(rarity_extended_equipement_armor_body, 2, 2, WRAPPER)
@@ -42,6 +43,7 @@ ARMOR_FOOT = deployer.deploy(rarity_extended_equipement_armor_foot, 2, 4, WRAPPE
 PRIMARY_WEAPONS = deployer.deploy(rarity_extended_equipement_primary_weapon, 3, 5, WRAPPER)
 SECONDARY_WEAPONS = deployer.deploy(rarity_extended_equipement_secondary_weapon, 3, 6, WRAPPER)
 SHIELDS = deployer.deploy(rarity_extended_equipement_shield, 2, 101, WRAPPER)
+
 # Linking the slots, the wrapped and the contracts
 WRAPPER.registerSlot(ARMOR_HEAD);
 WRAPPER.registerSlot(ARMOR_BODY);
