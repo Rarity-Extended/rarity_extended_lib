@@ -109,4 +109,4 @@ To get the price for upgrading:
 function upgradePrice(uint _toUpgradeLevel) public view returns (uint256);
 ```
 
-**[Deployed here]()**
+**[Deployed here](../../../DEPLOYEDCONTRACTS.md#Farm)**

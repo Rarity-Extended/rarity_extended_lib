@@ -126,4 +126,4 @@ To clean a slot:
 function cleanSlot(uint _slot) public;
 ```
 
-**[Deployed here]()**
+**[Deployed here](../../../DEPLOYEDCONTRACTS.md#Equipement)**
