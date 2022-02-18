@@ -1,6 +1,9 @@
 ## RarityExtended Farming
 
 A set of contracts to farm materials and gain experience with your adventurer. You can farm wood, minerals and much more.
+
+![Concept](farming.jpg)
+
 Composed by 3 contracts [rarity_extended_farming_core.sol](rarity_extended_farming_core.sol), [rarity_extended_farming_base.sol](rarity_extended_farming_base.sol) and [rarity_extended_farming_base_premium.sol](rarity_extended_farming_base_premium.sol).
 
 Farms have tiers, every tier needs a serie of requirements:
@@ -11,17 +14,17 @@ Farms have tiers, every tier needs a serie of requirements:
 
 You can farm in multiple farms at the same time. But `harvest` triggers a cooldown, and this disable you to harvest again during specific amount of time in the same farm.
 
-![Concept](farmingTiersConcept.jpg)
+![Concept](xp.jpg)
 
 **rarity_extended_farming_core** is the contract that manage all required data to farm.
 **rarity_extended_farming_base** is the contract that farms inherit. Holds basic behaviors for using everything.
 **rarity_extended_farming_base_premium** is a contract to implement aditional payable features. Ideal to fund the team behind development. Example: implement a paid upgrade functions.
 
-![Concept](farmingConcept.png)
+![Concept](tiers.jpg)
 
 To understand how XP works, Major did a cool drawing:
 
-![Concept](farmingXPConcept.jpg)
+![Concept](concept.jpg)
 
 ## Usage
 
