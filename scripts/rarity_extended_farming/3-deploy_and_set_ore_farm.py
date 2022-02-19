@@ -27,36 +27,36 @@ def main():
 	# Step 2 - Deploying the initial set of farming
 	ORE_FARMING_0 = DEPLOYER.deploy(rarity_extended_farming_base_premium,
 		RARITY_EXTENDED_MS, 5e18,
-		RARITY_FARMING_CORE, ORE_LOOT_0, 1, 0, "Rarity Copper Ore",
+		RARITY_FARMING_CORE, ORE_LOOT_0, 2, 0, "Rarity Copper Ore",
 		[], [],
 		publish_source=True, gas_price='250 gwei'
 	)
 	ORE_FARMING_1 = DEPLOYER.deploy(rarity_extended_farming_base_premium,
 		RARITY_EXTENDED_MS, 7e18,
-		RARITY_FARMING_CORE, ORE_LOOT_1, 1, 1, "Rarity Iron Ore", [ORE_LOOT_0], [12],
+		RARITY_FARMING_CORE, ORE_LOOT_1, 2, 1, "Rarity Iron Ore", [ORE_LOOT_0], [12],
 		publish_source=True, gas_price='250 gwei'
 	)
 	ORE_FARMING_2 = DEPLOYER.deploy(rarity_extended_farming_base_premium,
 		RARITY_EXTENDED_MS, 11e18,
-		RARITY_FARMING_CORE, ORE_LOOT_2, 1, 2, "Rarity Gold Ore",
+		RARITY_FARMING_CORE, ORE_LOOT_2, 2, 2, "Rarity Gold Ore",
 		[ORE_LOOT_0, ORE_LOOT_1], [6, 36],
 		publish_source=True, gas_price='250 gwei'
 	)
 	ORE_FARMING_3 = DEPLOYER.deploy(rarity_extended_farming_base_premium,
 		RARITY_EXTENDED_MS, 17e18,
-		RARITY_FARMING_CORE, ORE_LOOT_3, 1, 3, "Rarity Platinum Ore",
+		RARITY_FARMING_CORE, ORE_LOOT_3, 2, 3, "Rarity Platinum Ore",
 		[ORE_LOOT_0, ORE_LOOT_1, ORE_LOOT_2], [6, 18, 72],
 		publish_source=True, gas_price='250 gwei'
 	)
 	ORE_FARMING_4 = DEPLOYER.deploy(rarity_extended_farming_base_premium,
 		RARITY_EXTENDED_MS, 25e18,
-		RARITY_FARMING_CORE, ORE_LOOT_4, 1, 4, "Rarity Mithril Ore",
+		RARITY_FARMING_CORE, ORE_LOOT_4, 2, 4, "Rarity Mithril Ore",
 		[ORE_LOOT_0, ORE_LOOT_1, ORE_LOOT_2, ORE_LOOT_3], [6, 18, 36, 120],
 		publish_source=True, gas_price='250 gwei'
 	)
 	ORE_FARMING_5 = DEPLOYER.deploy(rarity_extended_farming_base_premium,
 		RARITY_EXTENDED_MS, 35e18,
-		RARITY_FARMING_CORE, ORE_LOOT_5, 1, 5, "Rarity Orichalcum Ore",
+		RARITY_FARMING_CORE, ORE_LOOT_5, 2, 5, "Rarity Orichalcum Ore",
 		[ORE_LOOT_0, ORE_LOOT_1, ORE_LOOT_2, ORE_LOOT_3, ORE_LOOT_4], [6, 18, 36, 60, 180],
 		publish_source=True, gas_price='250 gwei'
 	)

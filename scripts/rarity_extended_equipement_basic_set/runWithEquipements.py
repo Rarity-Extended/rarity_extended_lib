@@ -30,8 +30,26 @@ SHIELDS = deployer.deploy(rarity_extended_equipement_shield, 2, 101, WRAPPER)
 
 # Deploying Basic Sets
 BASIC_SET = deployer.deploy(rarity_extended_basic_set, RARITY_MANIFEST_ADDR, 3e18)
-BASIC_SET_TYPE2_CODEX_ADDR = deployer.deploy(rarity_extended_basic_set_armor_codex)
-BASIC_SET_TYPE3_CODEX_ADDR = deployer.deploy(rarity_extended_basic_set_weapon_codex)
+BASIC_SET_TYPE2_CODEX_ADDR = deployer.deploy(rarity_extended_basic_set_armor_codex, publish_source=True)
+BASIC_SET_TYPE3_CODEX_ADDR = deployer.deploy(rarity_extended_basic_set_weapon_codex, publish_source=True)
+
+ARMOR_HEAD = Contract.from_explorer('0x494d46681f26DEEB93ba791aca975A77ac9CF917')
+ARMOR_BODY = Contract.from_explorer('0xCCcD46478F384b1E49E3282a14e4431C7dD0D9c4')
+ARMOR_HAND = Contract.from_explorer('0x7b562412Ba62141c6497eA6256c100b19F56a687')
+ARMOR_FOOT = Contract.from_explorer('0x9578f6bB11B7f0E02ad9855d8F7A1B2972B8B881')
+PRIMARY_WEAPONS = Contract.from_explorer('0x1A04fF6Db46dB1be64c3bC53f1481e197B5C82Af')
+SECONDARY_WEAPONS = Contract.from_explorer('0x150c6F9A391cA9076F5f9Cf5e1D8A41c80540679')
+SHIELDS = Contract.from_explorer('0x1a8B00725126e26638b88833Abfb08f6AdBa63f5')
+
+ARMOR_HEAD.addRegistry(BASIC_SET, BASIC_SET, BASIC_SET_TYPE2_CODEX_ADDR, {'from': deployer})
+ARMOR_BODY.addRegistry(BASIC_SET, BASIC_SET, BASIC_SET_TYPE2_CODEX_ADDR, {'from': deployer})
+ARMOR_HAND.addRegistry(BASIC_SET, BASIC_SET, BASIC_SET_TYPE2_CODEX_ADDR, {'from': deployer})
+ARMOR_FOOT.addRegistry(BASIC_SET, BASIC_SET, BASIC_SET_TYPE2_CODEX_ADDR, {'from': deployer})
+PRIMARY_WEAPONS.addRegistry(BASIC_SET, BASIC_SET, BASIC_SET_TYPE3_CODEX_ADDR, {'from': deployer})
+SECONDARY_WEAPONS.addRegistry(BASIC_SET, BASIC_SET, BASIC_SET_TYPE3_CODEX_ADDR, {'from': deployer})
+SHIELDS.addRegistry(BASIC_SET, BASIC_SET, BASIC_SET_TYPE2_CODEX_ADDR, {'from': deployer})
+
+
 
 def printEnv():
 	print("=================================================================================")

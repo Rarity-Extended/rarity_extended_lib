@@ -44,6 +44,15 @@ contract rarity_extended_farming_core is Extended, Rarity {
 	}
 
 	/*******************************************************************************
+	**  @dev Revoke an existing farm 
+	**	@param _farm: Address of the farm contract
+	*******************************************************************************/
+	function revokeFarm(address _farm) public onlyExtended() {
+		require(farm[_farm].typeOf != 0, '!exist');
+		farm[_farm] = Farm(0, 0);
+	}
+
+	/*******************************************************************************
 	**  @dev Give some XP to the _adventurer. Only a registered farm can do that.
 	**	The amount of XP earned is computed based on the level of the adventurer and
 	**	the level of the harvest he is using.
