@@ -40,7 +40,7 @@ abstract contract rERC20 is AccessControl, Extended {
 	**	@param _minter The address to remove as a Minter.
 	*******************************************************************************/
     function unsetMinter(address _minter) external onlyExtended() {
-        revokeRole(MINTER_ROLE, _minter);
+        _revokeRole(MINTER_ROLE, _minter);
     }
 
     mapping(uint => mapping (uint => uint)) public allowance;

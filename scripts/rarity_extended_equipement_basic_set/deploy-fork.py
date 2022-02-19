@@ -2,11 +2,11 @@ from brownie import (
 	accounts, chain, Contract,
 	rarity_extended_basic_set,
 )
-deployer = accounts[0] # or accounts.load('rarityextended')
+deployer = accounts.load('rarityextended')
 DEVELOPER = ['0x9E63B020ae098E73cF201EE1357EDc72DFEaA518', '635036']
 RARITY_MANIFEST_ADDR = '0xce761D788DF608BD21bdd59d6f4B54b2e27F25Bb'
 RARITY_EXTENDED_MS = '0x0f5861aaf5F010202919C9126149c6B0c76Cf469'
-BASIC_SET = deployer.deploy(rarity_extended_basic_set, RARITY_MANIFEST_ADDR, RARITY_EXTENDED_MS, 5e18)
+BASIC_SET = deployer.deploy(rarity_extended_basic_set, RARITY_MANIFEST_ADDR, RARITY_EXTENDED_MS, 5e18, publish_source=True)
 
 def printEnv():
 	print("=================================================================================")
